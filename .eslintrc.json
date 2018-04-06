@@ -1,0 +1,11 @@
+{
+  "plugins": ["prettier"],
+  "extends": ["eslint-config-with-prettier", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": ["error", { "singleQuote": true, "bracketSpacing": true, "printWidth": 140 }],
+    "no-unused-expressions": "off",
+    "no-console": "off",
+    "react/prop-types": "off",
+    "import/no-extraneous-dependencies": "off"
+  }
+}

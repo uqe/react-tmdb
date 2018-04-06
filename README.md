@@ -1,5 +1,9 @@
 # TMDb API w/ React
 
+## Live demo
+
+https://romantic-heyrovsky-090bb0.netlify.com/
+
 ## TODO
 
 * [ ] axios instead of fetch

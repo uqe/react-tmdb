@@ -6,15 +6,16 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 
 ## TODO
 
+* [x] remove redux-logger from production build
+* [x] remove style-loader
+* [x] change favicon
 * [ ] axios instead of fetch
 * [ ] responsive
-* [ ] remove redux-logger from production build
 * [ ] react-loadable
 * [ ] favorite movies page
 * [ ] fav/unfav movies
 * [ ] search input
 * [ ] recommendations card
-* [ ] remove styled-loader
 
 ## .env file example
 

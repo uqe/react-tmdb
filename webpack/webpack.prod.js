@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const aliases = require('./aliases');
 
 module.exports = {
@@ -11,17 +10,5 @@ module.exports = {
     filename: 'static/[name].[hash].js'
   },
   devtool: 'source-map',
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      }
-    ]
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'styles/styles.[name].css'
-    })
-  ]
+  plugins: [new webpack.IgnorePlugin(/redux-logger/)]
 };

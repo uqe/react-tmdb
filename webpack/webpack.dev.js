@@ -11,14 +11,6 @@ module.exports = {
     filename: '[name].[hash].js'
   },
   devtool: 'inline-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
-  },
   plugins: [new webpack.HotModuleReplacementPlugin(), new ErrorOverlayPlugin()],
   devServer: {
     host: 'localhost',

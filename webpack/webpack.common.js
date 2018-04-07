@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const aliases = require('./aliases');
@@ -21,18 +20,6 @@ module.exports = {
       }
     ]
   },
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       vendor: {
-  //         chunks: 'initial',
-  //         test: 'vendor',
-  //         name: 'vendor',
-  //         enforce: true
-  //       }
-  //     }
-  //   }
-  // },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'TMDb',

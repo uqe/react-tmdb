@@ -2,10 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { actions } from '../actions';
 import MovieCard from '../components/MovieCard';
-import { Flex, Box } from 'grid-styled';
-import { fetchGenres } from '../helpers';
 import Pagination from '../components/Pagination';
-import { StyledCircularProgress, StyledTitle } from '../ui/PopularMoviesPage';
+import AppBar from '../components/AppBar';
+import { Container } from '../ui/PopularMoviesPage';
 
 class PopularMoviesPage extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class PopularMoviesPage extends Component {
 
   componentDidMount = () => {
     this.getCurrentPage(this.props);
-    this.props.getGenres();
+    this.props.genres === undefined && this.props.getGenres();
   };
 
   componentWillReceiveProps = nextProps => {
@@ -29,55 +28,33 @@ class PopularMoviesPage extends Component {
   getCurrentPage = props => {
     this.setState({ page: props.match.params.page === undefined ? 1 : parseInt(props.match.params.page, 10) }, () => {
       this.props.getPopularMovies(this.state.page);
-      this.state.page === 1 ? (document.title = 'TMDb') : (document.title = `TMDb | Page ${this.state.page}`);
+      this.state.page === 1 ? (document.title = 'Popular Movies') : (document.title = `Popular Movies | Page ${this.state.page}`);
     });
   };
 
   render() {
-    const { AllGenres, movies, isFetching, isFetched, isFetchedGenres } = this.props;
+    const { genres, movies, isFetching, isFetched, isFetchedGenres } = this.props;
     const { page } = this.state;
 
-    return (
+    return isFetched && isFetchedGenres ? (
       <Fragment>
-        <StyledTitle variant="display2" align="center" gutterBottom>
-          TMDb
-        </StyledTitle>
-        {isFetching && <StyledCircularProgress size={100} />}
-        <Flex
-          style={{
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            maxWidth: '1126px',
-            margin: 'auto'
-          }}
-        >
-          {isFetched &&
-            isFetchedGenres &&
-            movies.results.map(movie => (
-              <Box key={movie.id} p={2}>
-                <MovieCard
-                  genres={fetchGenres(AllGenres, movie.genre_ids)}
-                  title={movie.title}
-                  overview={movie.overview}
-                  id={movie.id}
-                  poster={movie.poster_path}
-                />
-              </Box>
-            ))}
-          <Box p={2}>
-            <Pagination page={page} />
-          </Box>
-        </Flex>
+        <AppBar />
+        <Container>
+          <MovieCard genres={genres} movies={movies} />
+          <Pagination page={page} start={`/`} next={`/${page + 1}`} back={`/${page - 1}`} />
+        </Container>
       </Fragment>
+    ) : (
+      <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  movies: state.movies.response,
+  movies: state.movies.results,
   isFetching: state.movies.isFetching,
   isFetched: state.movies.isFetched,
-  AllGenres: state.genres,
+  genres: state.genres.genres,
   isFetchedGenres: state.genres.isFetched
 });
 

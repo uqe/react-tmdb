@@ -13,7 +13,7 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [new webpack.HotModuleReplacementPlugin(), new ErrorOverlayPlugin()],
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 3000,
     historyApiFallback: true,
     hot: true,

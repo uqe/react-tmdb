@@ -1,13 +1,13 @@
 import { api } from '../api';
-import * as actionTypes from '../helpers/constants';
+import * as actions from '../helpers/constants';
 
 export const getGenres = () => {
-  const request = () => ({ type: actionTypes.GET_GENRES_REQUEST });
-  const success = genres => ({ type: actionTypes.GET_GENRES_SUCCESS, genres });
-  const failure = error => ({ type: actionTypes.GET_GENRES_FAILURE, error });
+  const request = () => ({ type: actions.GET_GENRES_REQUEST });
+  const success = genres => ({ type: actions.GET_GENRES_SUCCESS, genres });
+  const failure = error => ({ type: actions.GET_GENRES_FAILURE, error });
 
   return dispatch => {
     dispatch(request());
-    api.getGenres().then(genres => dispatch(success(genres)));
+    api.getGenres().then(response => dispatch(success(response.data)));
   };
 };

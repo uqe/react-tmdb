@@ -14,9 +14,8 @@ export const StyledGrow = styled(Grow)`
 export const StyledCard = styled(Card)`
   && {
     display: flex;
+    max-width: 480px;
     justify-content: space-between;
-    width: 500px;
-    height: 300px;
     background-color: #f6f8fa;
   }
 `;
@@ -31,7 +30,7 @@ export const StyledCardContent = styled(CardContent)`
 export const StyledCardMedia = styled(CardMedia)`
   && {
     display: flex;
-    min-width: 200px;
+    width: 200px;
     height: 300px;
   }
 `;

@@ -5,7 +5,7 @@ export const genres = (state = {}, action) => {
     case actionTypes.GET_GENRES_REQUEST:
       return { isFetching: true };
     case actionTypes.GET_GENRES_SUCCESS:
-      return { response: action.genres, isFetching: false, isFetched: true };
+      return { ...action.genres, isFetching: false, isFetched: true };
     case actionTypes.GET_GENRES_FAILURE:
       return { error: action.error, isFetching: false };
     default:

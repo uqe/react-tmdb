@@ -15,9 +15,11 @@ import {
   StyledGrow,
   StyledBadge,
   StyledTitle,
-  StyledCircularProgress
+  StyledCircularProgress,
+  Container
 } from '../ui/MovieDetailsPage';
 import { renderGenres } from '../helpers';
+import AppBar from '../components/AppBar';
 
 class MovieDetailsPage extends Component {
   constructor(props) {
@@ -36,7 +38,7 @@ class MovieDetailsPage extends Component {
   };
 
   getCurrentMovie = (props, fetchInfo = false) => {
-    document.title = props.movie === undefined ? 'Loading...' : props.movie.title;
+    document.title = props.movie.title === undefined ? 'Loading...' : props.movie.title;
     fetchInfo &&
       this.setState({ id: parseInt(props.match.params.id, 10) }, () => {
         this.props.getMovieDetails(this.state.id);
@@ -49,21 +51,12 @@ class MovieDetailsPage extends Component {
 
     return (
       <Fragment>
-        <StyledTitle variant="display2" align="center" gutterBottom component={({ ...props }) => <Link to="/" {...props} />}>
-          TMDb
-        </StyledTitle>
-        {isFetching && <StyledCircularProgress size={100} />}
-        <Flex
-          style={{
-            justifyContent: 'center',
-            maxWidth: '1126px',
-            margin: 'auto'
-          }}
-        >
+        <AppBar isFetching={isFetching} />
+        <Container>
           {isFetched &&
             isFetchedRecommendations && (
               <StyledGrow in {...(true ? { timeout: 1000 } : {})}>
-                <Box pt={2} width={1}>
+                <Box pt={2}>
                   <StyledCard>
                     <Details>
                       <StyledCardContent>
@@ -98,17 +91,17 @@ class MovieDetailsPage extends Component {
                 </Box>
               </StyledGrow>
             )}
-        </Flex>
+        </Container>
       </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  movie: state.movie.response,
+  movie: state.movie,
   isFetching: state.movie.isFetching,
   isFetched: state.movie.isFetched,
-  recommendations: state.recommendations.response,
+  recommendations: state.recommendations,
   isFetchingRecommendations: state.recommendations.isFetching,
   isFetchedRecommendations: state.recommendations.isFetched
 });

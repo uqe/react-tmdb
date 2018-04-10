@@ -1,8 +1,8 @@
 export const shortOverview = overview => (overview.length <= 120 ? overview : `${overview.substr(0, overview.lastIndexOf(' ', 120))}...`);
 
-export const fetchGenres = (AllGenres, genreIds) => {
+export const fetchGenres = (genres, genreIds) => {
   const genreWords = [];
-  genreIds.map(genreId => AllGenres.response.genres.forEach(item => item.id === genreId && genreWords.push(item.name)));
+  genreIds.map(genreId => genres.forEach(item => item.id === genreId && genreWords.push(item.name)));
 
   return genreWords;
 };

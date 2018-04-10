@@ -11,36 +11,36 @@ import {
   StyledButton,
   StyledGrow
 } from '../ui/MovieCard';
-import { shortOverview } from '../helpers';
+import { fetchGenres, shortOverview } from '../helpers';
+import { Box } from 'grid-styled';
 
-const MovieCard = props => {
-  const { title, overview, poster, id, genres } = props;
-
-  return (
-    <StyledGrow in {...(true ? { timeout: 1000 } : {})}>
-      <StyledCard>
-        <Details>
-          <StyledCardContent>
-            <StyledTypography variant="headline">{title}</StyledTypography>
-            <StyledTypography variant="subheading">
-              {genres.join(', ')}
-              <StyledDivider />
-              {shortOverview(overview)}
-            </StyledTypography>
-          </StyledCardContent>
-          <Buttons>
-            <StyledButton disabled size="small">
-              Add to my list
-            </StyledButton>
-            <StyledButton size="small" component={({ ...props }) => <Link to={`/movie/${id}`} {...props} />}>
-              Learn more
-            </StyledButton>
-          </Buttons>
-        </Details>
-        <StyledCardMedia image={`https://image.tmdb.org/t/p/w300${poster}`} title={title} />
-      </StyledCard>
-    </StyledGrow>
-  );
-};
+const MovieCard = ({ genres, movies }) =>
+  movies.map(movie => (
+    <Box key={movie.id} my={1} mx={2}>
+      <StyledGrow in {...(true ? { timeout: 1000 } : {})}>
+        <StyledCard>
+          <Details>
+            <StyledCardContent>
+              <StyledTypography variant="headline">{movie.title}</StyledTypography>
+              <StyledTypography variant="subheading">
+                {fetchGenres(genres, movie.genre_ids).join(', ')}
+                <StyledDivider />
+                {shortOverview(movie.overview)}
+              </StyledTypography>
+            </StyledCardContent>
+            <Buttons>
+              <StyledButton disabled size="small">
+                Add to my list
+              </StyledButton>
+              <StyledButton size="small" component={({ ...props }) => <Link to={`/movie/${movie.id}`} {...props} />}>
+                Learn more
+              </StyledButton>
+            </Buttons>
+          </Details>
+          <StyledCardMedia image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} title={movie.title} />
+        </StyledCard>
+      </StyledGrow>
+    </Box>
+  ));
 
 export default MovieCard;

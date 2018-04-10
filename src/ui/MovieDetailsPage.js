@@ -6,6 +6,7 @@ import Button from 'material-ui/Button';
 import styled from 'styled-components';
 import Badge from 'material-ui/Badge';
 import { CircularProgress } from 'material-ui/Progress';
+import { Flex } from 'grid-styled';
 
 export const StyledCircularProgress = styled(CircularProgress)`
   && {
@@ -43,6 +44,7 @@ export const StyledCard = styled(Card)`
     display: flex;
     justify-content: space-between;
     background-color: #f6f8fa;
+    max-width: 992px;
   }
 `;
 
@@ -55,8 +57,8 @@ export const StyledCardContent = styled(CardContent)`
 export const StyledCardMedia = styled(CardMedia)`
   && {
     display: flex;
-    min-width: 400px;
-    ${'' /* width: 400px; */} height: 600px;
+    width: 400px;
+    height: 600px;
   }
 `;
 
@@ -94,4 +96,11 @@ export const StyledButton = styled(Button)`
   && {
     color: #049;
   }
+`;
+
+export const Container = styled(Flex)`
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 992px;
+  margin: auto;
 `;

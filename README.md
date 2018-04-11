@@ -17,10 +17,12 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [ ] fav/unfav movies
 * [ ] recommendations card
 * [ ] react-router-redux
+* [x] react-helmet titles
 
 ## .env file example
 
      THEMOVIEDB_API_KEY=8SUisSHs7sSIsioSPsms
      THEMOVIEDB_API_LANGUAGE=en-EN
+     THEMOVIEDB_API_ADULT=false
 
 [Language variables](https://developers.themoviedb.org/3/getting-started/languages)

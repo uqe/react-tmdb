@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
 import MovieCard from '../components/MovieCard';
 import Pagination from '../components/Pagination';
@@ -28,30 +29,33 @@ class PopularMoviesPage extends Component {
   getCurrentPage = props => {
     this.setState({ page: props.match.params.page === undefined ? 1 : parseInt(props.match.params.page, 10) }, () => {
       this.props.getPopularMovies(this.state.page);
-      this.state.page === 1 ? (document.title = 'Popular Movies') : (document.title = `Popular Movies | Page ${this.state.page}`);
     });
   };
 
   render() {
-    const { genres, movies, isFetching, isFetched, isFetchedGenres } = this.props;
+    const { genres, movies: { results: movies }, movies: { total_results: pages }, isFetched, isFetchedGenres } = this.props;
     const { page } = this.state;
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
+        <Helmet title={page === 1 ? `Popular Movies` : `Popular Movies | Page ${page}`} />
         <AppBar />
         <Container>
           <MovieCard genres={genres} movies={movies} />
-          <Pagination page={page} start={`/`} next={`/${page + 1}`} back={`/${page - 1}`} />
+          <Pagination pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
         </Container>
       </Fragment>
     ) : (
-      <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+      <Fragment>
+        <Helmet title="Loading..." />
+        <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  movies: state.movies.results,
+  movies: state.movies,
   isFetching: state.movies.isFetching,
   isFetched: state.movies.isFetched,
   genres: state.genres.genres,

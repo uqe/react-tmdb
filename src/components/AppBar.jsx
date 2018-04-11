@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { StyledAppBar, StyledSearchBar, AppName, StyledCircularProgress } from '../ui/AppBar';
 import { Link, Redirect } from 'react-router-dom';
 import Toolbar from 'material-ui/Toolbar';
@@ -10,29 +10,16 @@ class AppBar extends Component {
       searchValue: '',
       searchSubmitted: false
     };
-
-    // this.submitForm = this.submitForm.bind(this);
-    this.goSearch = this.goSearch.bind(this);
   }
 
-  // goSearch = value => {
-  //   <Redirect to={{ pathname: '/search', state: { results: value } }} />;
-  // };
-
-  goSearch = () => {
-    <Redirect to={{ pathname: '/search', state: { results: 'kek' } }} />;
-  };
-
-  // submitForm = () => {
-  //   this.setState({ submit: true });
-  // };
+  componentWillReceiveProps = () => this.setState({ searchValue: '', searchSubmitted: false });
 
   render() {
     const { isFetched, isFetchedGenres } = this.props;
     const { searchValue, searchSubmitted } = this.state;
 
     return (
-      <div>
+      <Fragment>
         <StyledAppBar position="static">
           <Toolbar>
             <AppName variant="title" component={({ ...props }) => <Link to="/" {...props} />}>
@@ -44,11 +31,10 @@ class AppBar extends Component {
               onRequestSearch={() => this.setState({ searchSubmitted: true })}
             />
             {searchSubmitted && searchValue.length >= 1 && <Redirect to={{ pathname: '/search', search: `movie=${searchValue}` }} />}
-            {searchSubmitted && searchValue.length >= 1 && this.setState({ searchValue: '', searchSubmitted: false })}
           </Toolbar>
         </StyledAppBar>
         {isFetched && <StyledCircularProgress size={100} />}
-      </div>
+      </Fragment>
     );
   }
 }

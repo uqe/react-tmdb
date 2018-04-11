@@ -1,3 +1,5 @@
+import queryString from 'query-string';
+
 export const shortOverview = overview => (overview.length <= 120 ? overview : `${overview.substr(0, overview.lastIndexOf(' ', 120))}...`);
 
 export const fetchGenres = (genres, genreIds) => {
@@ -13,3 +15,5 @@ export const renderGenres = genres => {
 
   return done.join(', ');
 };
+
+export const fetchURL = (props, value) => queryString.parse(props.location.search)[value];

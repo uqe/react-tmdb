@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
 import MovieCard from '../components/MovieCard';
 import Pagination from '../components/Pagination';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
-import { Box } from 'grid-styled';
-import Button from 'material-ui/Button';
-import { Link } from 'react-router-dom';
-import queryString from 'query-string';
+import { fetchURL } from '../helpers';
 
 class SearchResultsPage extends Component {
   constructor(props) {
@@ -32,38 +30,34 @@ class SearchResultsPage extends Component {
 
   getCurrentPage = (props, update, nextProps) => {
     const updater = update
-      ? queryString.parse(props.location.search).page !== queryString.parse(nextProps.location.search).page ||
-        queryString.parse(props.location.search).movie !== queryString.parse(nextProps.location.search).movie
+      ? fetchURL(props, 'page') !== fetchURL(nextProps, 'page') || fetchURL(props, 'movie') !== fetchURL(nextProps, 'movie')
       : true;
     const uniProps = nextProps === undefined ? props : nextProps;
 
     updater &&
       this.setState(
         {
-          page:
-            queryString.parse(uniProps.location.search).page === undefined
-              ? 1
-              : parseInt(queryString.parse(uniProps.location.search).page, 10),
-          movie: queryString.parse(uniProps.location.search).movie
+          page: fetchURL(uniProps, 'page') === undefined ? 1 : parseInt(fetchURL(uniProps, 'page'), 10),
+          movie: fetchURL(uniProps, 'movie')
         },
         () => {
           this.props.getMovieSearchResults(this.state.movie, this.state.page);
-          document.title =
-            this.state.page === 1 ? `Result for "${this.state.movie}"` : `Result for "${this.state.movie}" | Page ${this.state.page}`;
         }
       );
   };
 
   render() {
-    const { search, genres, isFetching, isFetched, isFetchedGenres } = this.props;
+    const { search: { total_pages: pages }, search: { results: movies }, genres, isFetched, isFetchedGenres } = this.props;
     const { page, movie } = this.state;
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
+        <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`} />
         <AppBar />
         <Container>
-          <MovieCard genres={genres} movies={search} />
+          <MovieCard genres={genres} movies={movies} />
           <Pagination
+            pages={pages}
             page={page}
             start={{ pathname: '/search', search: `movie=${movie}` }}
             next={{ pathname: '/search', search: `page=${page + 1}&movie=${movie}` }}
@@ -72,13 +66,16 @@ class SearchResultsPage extends Component {
         </Container>
       </Fragment>
     ) : (
-      <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+      <Fragment>
+        <Helmet title="Loading..." />
+        <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  search: state.search.results,
+  search: state.search,
   isFetching: state.search.isFetching,
   isFetched: state.search.isFetched,
   genres: state.genres.genres,

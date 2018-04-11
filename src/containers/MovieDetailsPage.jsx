@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
 import { Flex, Box } from 'grid-styled';
 import { Link } from 'react-router-dom';
@@ -38,7 +39,6 @@ class MovieDetailsPage extends Component {
   };
 
   getCurrentMovie = (props, fetchInfo = false) => {
-    document.title = props.movie.title === undefined ? 'Loading...' : props.movie.title;
     fetchInfo &&
       this.setState({ id: parseInt(props.match.params.id, 10) }, () => {
         this.props.getMovieDetails(this.state.id);
@@ -49,49 +49,52 @@ class MovieDetailsPage extends Component {
   render() {
     const { movie, isFetching, isFetched, recommendations, isFetchingRecommendations, isFetchedRecommendations } = this.props;
 
-    return (
+    return isFetched && isFetchedRecommendations ? (
       <Fragment>
+        <Helmet title={movie.title} />
         <AppBar isFetching={isFetching} />
         <Container>
-          {isFetched &&
-            isFetchedRecommendations && (
-              <StyledGrow in {...(true ? { timeout: 1000 } : {})}>
-                <Box pt={2}>
-                  <StyledCard>
-                    <Details>
-                      <StyledCardContent>
-                        <StyledTypography variant="headline">{`${movie.title} (${movie.release_date.slice(0, 4)})`}</StyledTypography>
-                        <StyledBadge color="primary" badgeContent={movie.vote_average} />
-                        <StyledTypography variant="subheading">
-                          {renderGenres(movie.genres)}
-                          <StyledDivider />
-                          <StyledTypography variant="headline">Overview</StyledTypography>
-                          {movie.overview}
-                        </StyledTypography>
-                      </StyledCardContent>
-                      <Buttons>
-                        <StyledButton disabled size="small">
-                          Add to my list
-                        </StyledButton>
-                        <StyledButton
-                          size="small"
-                          component={({ ...props }) => (
-                            <Link
-                              to={`/movie/${recommendations.results[Math.floor(Math.random() * recommendations.results.length)].id}`}
-                              {...props}
-                            />
-                          )}
-                        >
-                          random silimar movie
-                        </StyledButton>
-                      </Buttons>
-                    </Details>
-                    <StyledCardMedia image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} title={movie.title} />
-                  </StyledCard>
-                </Box>
-              </StyledGrow>
-            )}
+          <StyledGrow in {...(true ? { timeout: 1000 } : {})}>
+            <Box pt={2}>
+              <StyledCard>
+                <Details>
+                  <StyledCardContent>
+                    <StyledTypography variant="headline">{`${movie.title} (${movie.release_date.slice(0, 4)})`}</StyledTypography>
+                    <StyledBadge color="primary" badgeContent={movie.vote_average} />
+                    <StyledTypography variant="subheading">
+                      {renderGenres(movie.genres)}
+                      <StyledDivider />
+                      <StyledTypography variant="headline">Overview</StyledTypography>
+                      {movie.overview}
+                    </StyledTypography>
+                  </StyledCardContent>
+                  <Buttons>
+                    <StyledButton disabled size="small">
+                      Add to my list
+                    </StyledButton>
+                    <StyledButton
+                      size="small"
+                      component={({ ...props }) => (
+                        <Link
+                          to={`/movie/${recommendations.results[Math.floor(Math.random() * recommendations.results.length)].id}`}
+                          {...props}
+                        />
+                      )}
+                    >
+                      random silimar movie
+                    </StyledButton>
+                  </Buttons>
+                </Details>
+                <StyledCardMedia image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} title={movie.title} />
+              </StyledCard>
+            </Box>
+          </StyledGrow>
         </Container>
+      </Fragment>
+    ) : (
+      <Fragment>
+        <Helmet title="Loading..." />
+        <AppBar isFetched={!isFetched} />
       </Fragment>
     );
   }

@@ -1,12 +1,12 @@
-import * as actionTypes from '../helpers/constants';
+import * as actions from '../helpers/constants';
 
 export const genres = (state = {}, action) => {
   switch (action.type) {
-    case actionTypes.GET_GENRES_REQUEST:
+    case actions.GET_GENRES_REQUEST:
       return { isFetching: true };
-    case actionTypes.GET_GENRES_SUCCESS:
+    case actions.GET_GENRES_SUCCESS:
       return { ...action.genres, isFetching: false, isFetched: true };
-    case actionTypes.GET_GENRES_FAILURE:
+    case actions.GET_GENRES_FAILURE:
       return { error: action.error, isFetching: false };
     default:
       return state;

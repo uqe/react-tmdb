@@ -11,13 +11,13 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [x] change favicon
 * [x] axios instead of fetch
 * [x] search input
+* [x] fav/unfav movies
+* [x] react-helmet titles
 * [ ] responsive
 * [ ] react-loadable
 * [ ] favorite movies page
-* [ ] fav/unfav movies
 * [ ] recommendations card
 * [ ] react-router-redux
-* [x] react-helmet titles
 
 ## .env file example
 

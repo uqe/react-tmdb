@@ -41,7 +41,12 @@ class PopularMoviesPage extends Component {
         <Helmet title={page === 1 ? `Popular Movies` : `Popular Movies | Page ${page}`} />
         <AppBar />
         <Container>
-          <MovieCard genres={genres} movies={movies} />
+          <MovieCard
+            genres={genres}
+            movies={movies}
+            addToFavorites={this.props.addMovieToFavorites}
+            removeFromFavorites={this.props.removeMovieFromFavorites}
+          />
           <Pagination pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
         </Container>
       </Fragment>
@@ -64,7 +69,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getPopularMovies: page => dispatch(actions.getPopularMovies(page)),
-  getGenres: () => dispatch(actions.getGenres())
+  getGenres: () => dispatch(actions.getGenres()),
+  addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
+  removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopularMoviesPage);

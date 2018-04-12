@@ -14,10 +14,10 @@ import {
 import { fetchGenres, shortOverview } from '../helpers';
 import { Box } from 'grid-styled';
 
-const MovieCard = ({ genres, movies, addToFavorites, removeFromFavorites }) =>
+const MovieCard = ({ genres, movies, favorites, addToFavorites, removeFromFavorites }) =>
   movies.map(movie => (
     <Box key={movie.id} my={1} mx={2}>
-      <StyledGrow in {...(true ? { timeout: 1000 } : {})}>
+      <StyledGrow in {...true && { timeout: 1000 }}>
         <StyledCard>
           <Details>
             <StyledCardContent>
@@ -29,12 +29,15 @@ const MovieCard = ({ genres, movies, addToFavorites, removeFromFavorites }) =>
               </StyledTypography>
             </StyledCardContent>
             <Buttons>
-              <StyledButton onClick={() => addToFavorites(movie.id)} size="small">
-                Add
-              </StyledButton>
-              <StyledButton onClick={() => removeFromFavorites(movie.id)} size="small">
-                remove
-              </StyledButton>
+              {favorites.some(favmovie => favmovie.id === movie.id) ? (
+                <StyledButton onClick={() => removeFromFavorites(movie)} size="small">
+                  Unfav
+                </StyledButton>
+              ) : (
+                <StyledButton onClick={() => addToFavorites(movie)} size="small">
+                  Add to fav
+                </StyledButton>
+              )}
               <StyledButton size="small" component={({ ...props }) => <Link to={`/movie/${movie.id}`} {...props} />}>
                 Learn more
               </StyledButton>

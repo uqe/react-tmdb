@@ -17,3 +17,15 @@ export const renderGenres = genres => {
 };
 
 export const fetchURL = (props, value) => queryString.parse(props.location.search)[value];
+
+export const getTotalPages = movies => (movies / 20 <= 1 ? 1 : Math.ceil(movies / 20));
+
+export const sliceMoviesToPages = (movies, page) => {
+  // let kek = movies;
+  const end = page * 20;
+  const start = end - 20;
+  // page === 1 ? kek.slice(0, 20) : kek.slice(start, end)
+
+  return movies.slice(start, end);
+  // page = 2 kek.slice(20, 40)
+};

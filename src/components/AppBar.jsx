@@ -25,6 +25,9 @@ class AppBar extends Component {
             <AppName variant="title" component={({ ...props }) => <Link to="/" {...props} />}>
               TMDb
             </AppName>
+            <AppName variant="title" component={({ ...props }) => <Link to="/favorites/page/1" {...props} />}>
+              Fav
+            </AppName>
             <StyledSearchBar
               onChange={value => this.setState({ searchValue: value })}
               value={searchValue}

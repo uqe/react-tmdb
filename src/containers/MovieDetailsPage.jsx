@@ -47,7 +47,17 @@ class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { movie, isFetching, isFetched, recommendations, isFetchingRecommendations, isFetchedRecommendations } = this.props;
+    const {
+      movie,
+      isFetching,
+      isFetched,
+      recommendations,
+      isFetchingRecommendations,
+      isFetchedRecommendations,
+      favorites,
+      addMovieToFavorites,
+      removeMovieFromFavorites
+    } = this.props;
 
     return isFetched && isFetchedRecommendations ? (
       <Fragment>
@@ -69,9 +79,15 @@ class MovieDetailsPage extends Component {
                     </StyledTypography>
                   </StyledCardContent>
                   <Buttons>
-                    <StyledButton disabled size="small">
-                      Add to my list
-                    </StyledButton>
+                    {favorites.some(favmovie => favmovie.id === movie.id) ? (
+                      <StyledButton onClick={() => removeMovieFromFavorites(movie)} size="small">
+                        Unfav
+                      </StyledButton>
+                    ) : (
+                      <StyledButton onClick={() => addMovieToFavorites(movie)} size="small">
+                        Add to fav
+                      </StyledButton>
+                    )}
                     <StyledButton
                       size="small"
                       component={({ ...props }) => (
@@ -106,12 +122,15 @@ const mapStateToProps = state => ({
   isFetched: state.movie.isFetched,
   recommendations: state.recommendations,
   isFetchingRecommendations: state.recommendations.isFetching,
-  isFetchedRecommendations: state.recommendations.isFetched
+  isFetchedRecommendations: state.recommendations.isFetched,
+  favorites: state.favorites
 });
 
 const mapDispatchToProps = dispatch => ({
   getMovieDetails: id => dispatch(actions.getMovieDetails(id)),
-  getMovieRecommendations: (id, page) => dispatch(actions.getMovieRecommendations(id, page))
+  getMovieRecommendations: (id, page) => dispatch(actions.getMovieRecommendations(id, page)),
+  addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
+  removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);

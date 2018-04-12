@@ -13,11 +13,12 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [x] search input
 * [x] fav/unfav movies
 * [x] react-helmet titles
+* [x] favorite movies page
 * [ ] responsive
 * [ ] react-loadable
-* [ ] favorite movies page
 * [ ] recommendations card
 * [ ] react-router-redux
+* [] fav movies pagination => reducer
 
 ## .env file example
 

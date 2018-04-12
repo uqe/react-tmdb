@@ -33,7 +33,16 @@ class PopularMoviesPage extends Component {
   };
 
   render() {
-    const { genres, movies: { results: movies }, movies: { total_results: pages }, isFetched, isFetchedGenres } = this.props;
+    const {
+      genres,
+      favorites,
+      movies: { results: movies },
+      movies: { total_results: pages },
+      isFetched,
+      isFetchedGenres,
+      addMovieToFavorites,
+      removeMovieFromFavorites
+    } = this.props;
     const { page } = this.state;
 
     return isFetched && isFetchedGenres ? (
@@ -44,8 +53,9 @@ class PopularMoviesPage extends Component {
           <MovieCard
             genres={genres}
             movies={movies}
-            addToFavorites={this.props.addMovieToFavorites}
-            removeFromFavorites={this.props.removeMovieFromFavorites}
+            favorites={favorites}
+            addToFavorites={addMovieToFavorites}
+            removeFromFavorites={removeMovieFromFavorites}
           />
           <Pagination pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
         </Container>
@@ -64,7 +74,8 @@ const mapStateToProps = state => ({
   isFetching: state.movies.isFetching,
   isFetched: state.movies.isFetched,
   genres: state.genres.genres,
-  isFetchedGenres: state.genres.isFetched
+  isFetchedGenres: state.genres.isFetched,
+  favorites: state.favorites
 });
 
 const mapDispatchToProps = dispatch => ({

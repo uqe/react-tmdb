@@ -47,7 +47,16 @@ class SearchResultsPage extends Component {
   };
 
   render() {
-    const { search: { total_pages: pages }, search: { results: movies }, genres, isFetched, isFetchedGenres } = this.props;
+    const {
+      favorites,
+      search: { total_pages: pages },
+      search: { results: movies },
+      genres,
+      isFetched,
+      isFetchedGenres,
+      addMovieToFavorites,
+      removeMovieFromFavorites
+    } = this.props;
     const { page, movie } = this.state;
 
     return isFetched && isFetchedGenres ? (
@@ -55,7 +64,13 @@ class SearchResultsPage extends Component {
         <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`} />
         <AppBar />
         <Container>
-          <MovieCard genres={genres} movies={movies} />
+          <MovieCard
+            genres={genres}
+            movies={movies}
+            favorites={favorites}
+            addToFavorites={addMovieToFavorites}
+            removeFromFavorites={removeMovieFromFavorites}
+          />
           <Pagination
             pages={pages}
             page={page}
@@ -79,12 +94,15 @@ const mapStateToProps = state => ({
   isFetching: state.search.isFetching,
   isFetched: state.search.isFetched,
   genres: state.genres.genres,
-  isFetchedGenres: state.genres.isFetched
+  isFetchedGenres: state.genres.isFetched,
+  favorites: state.favorites
 });
 
 const mapDispatchToProps = dispatch => ({
   getMovieSearchResults: (query, page) => dispatch(actions.getMovieSearchResults(query, page)),
-  getGenres: () => dispatch(actions.getGenres())
+  getGenres: () => dispatch(actions.getGenres()),
+  addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
+  removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResultsPage);

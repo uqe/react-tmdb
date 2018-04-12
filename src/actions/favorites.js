@@ -1,17 +1,17 @@
 import * as actions from '../helpers/constants';
 
-export const addMovieToFavorites = id => {
-  const addMovie = id => ({ type: actions.ADD_MOVIE_TO_FAVORITES, id });
+export const addMovieToFavorites = movie => {
+  const addMovie = movie => ({ type: actions.ADD_MOVIE_TO_FAVORITES, movie });
 
   return dispatch => {
-    dispatch(addMovie(id));
+    dispatch(addMovie(movie));
   };
 };
 
-export const removeMovieFromFavorites = id => {
-  const removeMovie = id => ({ type: actions.REMOVE_MOVIE_FROM_FAVORITES, id });
+export const removeMovieFromFavorites = movie => {
+  const removeMovie = movie => ({ type: actions.REMOVE_MOVIE_FROM_FAVORITES, movie });
 
   return dispatch => {
-    dispatch(removeMovie(id));
+    dispatch(removeMovie(movie));
   };
 };

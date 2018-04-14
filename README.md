@@ -18,7 +18,8 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [ ] react-loadable
 * [ ] recommendations card
 * [ ] react-router-redux
-* [] fav movies pagination => reducer
+* [ ] fav movies pagination => reducer
+* [ ] fix fav from movie dedtails page
 
 ## .env file example
 

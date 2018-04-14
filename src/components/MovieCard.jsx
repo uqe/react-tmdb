@@ -11,14 +11,15 @@ import {
   StyledButton,
   StyledGrow
 } from '../ui/MovieCard';
-import { fetchGenres, shortOverview } from '../helpers';
+import { fetchGenres, shortOverview, setRandomGradient } from '../helpers';
 import { Box } from 'grid-styled';
 
-const MovieCard = ({ genres, movies, favorites, addToFavorites, removeFromFavorites }) =>
-  movies.map(movie => (
-    <Box key={movie.id} my={1} mx={2}>
+const MovieCard = ({ genres, movies, favorites, addToFavorites, removeFromFavorites }) => {
+  // colors={setRandomGradient()}
+  const moviesrender = movies.map(movie => (
+    <Box key={movie.original_title} my={2} mx={2}>
       <StyledGrow in {...true && { timeout: 1000 }}>
-        <StyledCard>
+        <StyledCard key={movie.original_title} poster={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}>
           <Details>
             <StyledCardContent>
               <StyledTypography variant="headline">{movie.title}</StyledTypography>
@@ -43,10 +44,13 @@ const MovieCard = ({ genres, movies, favorites, addToFavorites, removeFromFavori
               </StyledButton>
             </Buttons>
           </Details>
-          <StyledCardMedia image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} title={movie.title} />
+          {/* <StyledCardMedia image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} title={movie.title} /> */}
         </StyledCard>
       </StyledGrow>
     </Box>
   ));
+
+  return moviesrender;
+};
 
 export default MovieCard;

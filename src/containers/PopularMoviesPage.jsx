@@ -23,8 +23,14 @@ class PopularMoviesPage extends Component {
   };
 
   componentWillReceiveProps = nextProps => {
+    // console.log(this.props);
+    // console.log(nextProps);
     this.props.match.params.page !== nextProps.match.params.page && this.getCurrentPage(nextProps);
   };
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return this.props.favorites === nextProps.favorites;
+  }
 
   getCurrentPage = props => {
     this.setState({ page: props.match.params.page === undefined ? 1 : parseInt(props.match.params.page, 10) }, () => {

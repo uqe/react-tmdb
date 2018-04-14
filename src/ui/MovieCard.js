@@ -15,15 +15,19 @@ export const StyledCard = styled(Card)`
   && {
     display: flex;
     max-width: 480px;
+    height: 300px;
     justify-content: space-between;
-    background-color: #f6f8fa;
-  }
+    background-size: cover;
+    background-position-y: 5%;
+    background-image: ${props => `linear-gradient(to left, rgba(20, 30, 48, 0.5) 0%, rgba(20, 30, 48, 0.5) 100%), url(${props.poster})`};
+    ${
+      '' /* background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`}; */
+    }
 `;
 
 export const StyledCardContent = styled(CardContent)`
   && {
     flex: 1 0 auto;
-    color: pink;
   }
 `;
 
@@ -53,6 +57,7 @@ export const Buttons = styled.div`
 
 export const StyledDivider = styled(Divider)`
   && {
+    opacity: 0.5;
     margin: 5px 0px;
     background-color: #cdf;
     padding-top: 1px;
@@ -61,12 +66,15 @@ export const StyledDivider = styled(Divider)`
 
 export const StyledTypography = styled(Typography)`
   && {
-    color: ${props => (props.variant === 'headline' ? '#364049' : '#687B8E')};
+    text-shadow: 1px 1px 1px #000;
+    color: ${props => (props.variant === 'headline' ? 'white' : 'white')};
+    opacity: 0.85;
   }
 `;
 
 export const StyledButton = styled(Button)`
   && {
-    color: #049;
+    text-shadow: 1px 1px 1px #000;
+    color: white;
   }
 `;

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
-import MovieCard from '../components/MovieCard';
+import MovieCards from '../components/MovieCards';
 import Pagination from '../components/Pagination';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
@@ -47,16 +47,7 @@ class SearchResultsPage extends Component {
   };
 
   render() {
-    const {
-      favorites,
-      search: { total_pages: pages },
-      search: { results: movies },
-      genres,
-      isFetched,
-      isFetchedGenres,
-      addMovieToFavorites,
-      removeMovieFromFavorites
-    } = this.props;
+    const { search: { total_pages: pages }, search: { results: movies }, genres, isFetched, isFetchedGenres } = this.props;
     const { page, movie } = this.state;
 
     return isFetched && isFetchedGenres ? (
@@ -64,14 +55,9 @@ class SearchResultsPage extends Component {
         <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`} />
         <AppBar />
         <Container>
-          <MovieCard
-            genres={genres}
+          <MovieCards
             movies={movies}
-            favorites={favorites}
-            addToFavorites={addMovieToFavorites}
-            removeFromFavorites={removeMovieFromFavorites}
-          />
-          <Pagination
+            genres={genres}
             pages={pages}
             page={page}
             start={{ pathname: '/search', search: `movie=${movie}` }}
@@ -94,15 +80,12 @@ const mapStateToProps = state => ({
   isFetching: state.search.isFetching,
   isFetched: state.search.isFetched,
   genres: state.genres.genres,
-  isFetchedGenres: state.genres.isFetched,
-  favorites: state.favorites
+  isFetchedGenres: state.genres.isFetched
 });
 
 const mapDispatchToProps = dispatch => ({
   getMovieSearchResults: (query, page) => dispatch(actions.getMovieSearchResults(query, page)),
-  getGenres: () => dispatch(actions.getGenres()),
-  addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
-  removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
+  getGenres: () => dispatch(actions.getGenres())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResultsPage);

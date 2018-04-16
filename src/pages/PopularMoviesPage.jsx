@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
-import MovieCard from '../components/MovieCard';
-import Pagination from '../components/Pagination';
+import MovieCards from '../components/MovieCards';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
 
@@ -18,6 +17,7 @@ class PopularMoviesPage extends Component {
   }
 
   componentDidMount = () => {
+    console.log('did mount');
     this.getCurrentPage(this.props);
     this.props.genres === undefined && this.props.getGenres();
   };
@@ -25,12 +25,13 @@ class PopularMoviesPage extends Component {
   componentWillReceiveProps = nextProps => {
     // console.log(this.props);
     // console.log(nextProps);
+    console.log('new props');
     this.props.match.params.page !== nextProps.match.params.page && this.getCurrentPage(nextProps);
   };
 
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
-    return this.props.favorites === nextProps.favorites;
-  }
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   return this.props.favorites === nextProps.favorites;
+  // }
 
   getCurrentPage = props => {
     this.setState({ page: props.match.params.page === undefined ? 1 : parseInt(props.match.params.page, 10) }, () => {
@@ -39,31 +40,16 @@ class PopularMoviesPage extends Component {
   };
 
   render() {
-    const {
-      genres,
-      favorites,
-      movies: { results: movies },
-      movies: { total_results: pages },
-      isFetched,
-      isFetchedGenres,
-      addMovieToFavorites,
-      removeMovieFromFavorites
-    } = this.props;
+    const { genres, movies: { results: movies }, movies: { total_results: pages }, isFetched, isFetchedGenres } = this.props;
     const { page } = this.state;
+    console.log('render');
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
         <Helmet title={page === 1 ? `Popular Movies` : `Popular Movies | Page ${page}`} />
         <AppBar />
         <Container>
-          <MovieCard
-            genres={genres}
-            movies={movies}
-            favorites={favorites}
-            addToFavorites={addMovieToFavorites}
-            removeFromFavorites={removeMovieFromFavorites}
-          />
-          <Pagination pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
+          <MovieCards movies={movies} genres={genres} pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
         </Container>
       </Fragment>
     ) : (
@@ -80,15 +66,12 @@ const mapStateToProps = state => ({
   isFetching: state.movies.isFetching,
   isFetched: state.movies.isFetched,
   genres: state.genres.genres,
-  isFetchedGenres: state.genres.isFetched,
-  favorites: state.favorites
+  isFetchedGenres: state.genres.isFetched
 });
 
 const mapDispatchToProps = dispatch => ({
   getPopularMovies: page => dispatch(actions.getPopularMovies(page)),
-  getGenres: () => dispatch(actions.getGenres()),
-  addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
-  removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
+  getGenres: () => dispatch(actions.getGenres())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopularMoviesPage);

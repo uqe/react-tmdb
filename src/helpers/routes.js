@@ -1,16 +1,12 @@
 import React from 'react';
-import { createBrowserHistory } from 'history';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, withRouter } from 'react-router-dom';
+import PopularMoviesPage from '../pages/PopularMoviesPage';
+import MovieDetailsPage from '../pages/MovieDetailsPage';
+import SearchResultsPage from '../pages/SearchResultsPage';
+import FavoritesMoviesPage from '../pages/FavoritesMoviesPage';
 
-import PopularMoviesPage from '../containers/PopularMoviesPage';
-import MovieDetailsPage from '../containers/MovieDetailsPage';
-import SearchResultsPage from '../containers/SearchResultsPage';
-import FavoritesMoviesPage from '../containers/FavoritesMoviesPage';
-
-const history = createBrowserHistory();
-
-export const Routes = () => (
-  <Router history={history}>
+const Routes = ({ ...props }) => (
+  <Router {...props}>
     <Switch>
       <Route exact path="/" component={PopularMoviesPage} />
       <Route path="/favorites/page/:page" component={FavoritesMoviesPage} />
@@ -20,3 +16,5 @@ export const Routes = () => (
     </Switch>
   </Router>
 );
+
+export default withRouter(Routes);

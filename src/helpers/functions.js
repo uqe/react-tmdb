@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import { colors } from '../ui/Colors';
 
-export const shortOverview = overview => (overview.length <= 240 ? overview : `${overview.substr(0, overview.lastIndexOf(' ', 240))}...`);
+export const shortOverview = overview => (overview.length <= 300 ? overview : `${overview.substr(0, overview.lastIndexOf(' ', 300))}...`);
 
 export const fetchGenres = (genres, genreIds) => {
   const genreWords = [];

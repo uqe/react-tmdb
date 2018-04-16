@@ -1,56 +1,108 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { actions } from '../actions';
 import {
-  StyledCard,
-  StyledCardContent,
-  StyledCardMedia,
+  MovieCardInfo as Card,
   Details,
+  Information,
   Buttons,
-  StyledDivider,
-  StyledTypography,
-  StyledButton,
-  StyledGrow
+  StyledDivider as Divider,
+  Overview,
+  StyledButton as Button,
+  Animation,
+  Title
 } from '../ui/MovieCard';
-import { fetchGenres, shortOverview, setRandomGradient } from '../helpers';
-import { Box } from 'grid-styled';
+import { fetchGenres, setRandomGradient } from '../helpers';
+import FavoriteButton from './FavoriteButton';
 
-const MovieCard = ({ genres, movies, favorites, addToFavorites, removeFromFavorites }) => {
-  // colors={setRandomGradient()}
-  const moviesrender = movies.map(movie => (
-    <Box key={movie.original_title} my={2} mx={2}>
-      <StyledGrow in {...true && { timeout: 1000 }}>
-        <StyledCard key={movie.original_title} poster={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}>
+class MovieCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(this.props);
+    console.log(nextProps);
+  }
+
+  // shouldComponentUpdate(nextProps) {
+  //   const unfav =
+  //     nextProps.favorites.some(movie => movie.id === nextProps.id) === false &&
+  //     this.props.favorites.some(movie => movie.id === this.props.id) === true;
+
+  //   // const fav = this.props.id === nextProps.favorites[nextProps.favorites.length - 1].id;
+  //   const fav =
+  //     nextProps.favorites.some(movie => movie.id === nextProps.id) === true &&
+  //     this.props.favorites.some(movie => movie.id === this.props.id) === false;
+
+  //   // return (
+  //   //   (nextProps.favorites.some(movie => (movie.id === nextProps.id) === true) &&
+  //   //     this.props.favorites.some(movie => movie.id === this.props.id) === false) ||
+  //   //   (nextProps.favorites.some(movie => movie.id === nextProps.id) === false &&
+  //   //     this.props.favorites.some(movie => movie.id === this.props.id) === true)
+  //   // );
+
+  //   return unfav === true ? unfav : fav;
+  // }
+
+  render() {
+    const {
+      genres,
+      movie,
+      poster_path,
+      title,
+      genre_ids,
+      overview,
+      id
+      // id,
+      // favorites,
+      // addMovieToFavorites,
+      // removeMovieFromFavorites
+    } = this.props;
+
+    return (
+      // <Animation in {...true && { timeout: 500 }}>
+      <Card colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
+        <Information>
           <Details>
-            <StyledCardContent>
-              <StyledTypography variant="headline">{movie.title}</StyledTypography>
-              <StyledTypography variant="subheading">
-                {fetchGenres(genres, movie.genre_ids).join(', ')}
-                <StyledDivider />
-                {shortOverview(movie.overview)}
-              </StyledTypography>
-            </StyledCardContent>
-            <Buttons>
-              {favorites.some(favmovie => favmovie.id === movie.id) ? (
-                <StyledButton onClick={() => removeFromFavorites(movie)} size="small">
-                  Unfav
-                </StyledButton>
-              ) : (
-                <StyledButton onClick={() => addToFavorites(movie)} size="small">
-                  Add to fav
-                </StyledButton>
-              )}
-              <StyledButton size="small" component={({ ...props }) => <Link to={`/movie/${movie.id}`} {...props} />}>
-                Learn more
-              </StyledButton>
-            </Buttons>
+            <Title variant="headline">{title}&nbsp;</Title>
+            <Overview variant="subheading">
+              {fetchGenres(genres, genre_ids).join(', ')}
+              <Divider />
+              {overview}
+            </Overview>
           </Details>
-          {/* <StyledCardMedia image={`https://image.tmdb.org/t/p/w300${movie.poster_path}`} title={movie.title} /> */}
-        </StyledCard>
-      </StyledGrow>
-    </Box>
-  ));
+          <Buttons>
+            {/* {favorites.some(favmovie => favmovie.id === id) ? (
+              <Button onClick={() => removeMovieFromFavorites(movie)} size="small">
+                Unfav
+              </Button>
+            ) : (
+              <Button onClick={() => addMovieToFavorites(movie)} size="small">
+                Add to fav
+              </Button>
+            )} */}
+            <FavoriteButton movie={movie} id={id} />
+            <Button size="small" component={({ ...props }) => <Link to={`/movie/${id}`} {...props} />}>
+              Learn more
+            </Button>
+          </Buttons>
+        </Information>
+      </Card>
+      // </Animation>
+    );
+  }
+}
 
-  return moviesrender;
-};
+// const mapStateToProps = state => ({
+//   favorites: state.favorites
+// });
 
+// const mapDispatchToProps = dispatch => ({
+//   addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
+//   removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
+// });
 export default MovieCard;
+// export default connect(mapStateToProps, mapDispatchToProps)(MovieCard);

@@ -1,11 +1,14 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { Routes, store } from './helpers';
+import Routes from './helpers/routes';
+import { ConnectedRouter } from 'react-router-redux';
 
-const Root = () => (
+const Root = ({ history, store }) => (
   <Provider store={store}>
-    <Routes />
+    <ConnectedRouter history={history}>
+      <Routes />
+    </ConnectedRouter>
   </Provider>
 );
 

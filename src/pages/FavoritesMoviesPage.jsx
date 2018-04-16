@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
-import MovieCard from '../components/MovieCard';
-import Pagination from '../components/Pagination';
+import MovieCards from '../components/MovieCards';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
 import { getTotalPages, sliceMoviesToPages } from '../helpers';
-import { Redirect } from 'react-router-dom';
 
 class FavoritesMoviesPage extends Component {
   constructor(props) {
@@ -47,7 +46,7 @@ class FavoritesMoviesPage extends Component {
   };
 
   render() {
-    const { genres, favorites, isFetched, isFetchedGenres, addMovieToFavorites, removeMovieFromFavorites } = this.props;
+    const { genres, isFetched, isFetchedGenres } = this.props;
     const { page, pages, renderMovies, doneslicing } = this.state;
 
     return isFetchedGenres && doneslicing ? (
@@ -56,22 +55,15 @@ class FavoritesMoviesPage extends Component {
         <AppBar />
         <Container>
           {renderMovies.length !== 0 ? (
-            <Fragment>
-              <MovieCard
-                genres={genres}
-                movies={renderMovies}
-                favorites={favorites}
-                addToFavorites={addMovieToFavorites}
-                removeFromFavorites={removeMovieFromFavorites}
-              />
-              <Pagination
-                pages={pages}
-                page={page}
-                start="/favorites/page/1"
-                next={`/favorites/page/${page + 1}`}
-                back={`/favorites/page/${page - 1}`}
-              />
-            </Fragment>
+            <MovieCards
+              movies={renderMovies}
+              pages={pages}
+              page={page}
+              genres={genres}
+              start="/favorites/page/1"
+              next={`/favorites/page/${page + 1}`}
+              back={`/favorites/page/${page - 1}`}
+            />
           ) : (
             <Fragment>
               <h1>No favorite movies</h1>
@@ -99,9 +91,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getMovieDetails: id => dispatch(actions.getMovieDetails(id)),
-  getGenres: () => dispatch(actions.getGenres()),
-  addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
-  removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
+  getGenres: () => dispatch(actions.getGenres())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesMoviesPage);

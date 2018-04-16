@@ -1,48 +1,42 @@
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import Grow from 'material-ui/transitions/Grow';
+import Fade from 'material-ui/transitions/Fade';
 import Button from 'material-ui/Button';
 import styled from 'styled-components';
 
-export const StyledGrow = styled(Grow)`
-  && {
-    transform-origin: 0 0 0;
-  }
-`;
+export const Animation = styled(Fade)``;
 
-export const StyledCard = styled(Card)`
+export const MovieCardInfo = styled(Card)`
   && {
     display: flex;
-    max-width: 480px;
+    margin: auto;
     height: 300px;
     justify-content: space-between;
+    &:hover {
+      background-image: ${props =>
+        `linear-gradient(to left, ${props.colors.second} 0%,  ${props.colors.first} 100%), url(${props.poster})`};
+    }
+    background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
     background-size: cover;
     background-position-y: 5%;
-    background-image: ${props => `linear-gradient(to left, rgba(20, 30, 48, 0.5) 0%, rgba(20, 30, 48, 0.5) 100%), url(${props.poster})`};
+    box-shadow: inset 0px 0px 50px -15px rgba(0, 0, 0, 0.3), 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
     ${
-      '' /* background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`}; */
+      '' /* background-image: ${props => `linear-gradient(to left, rgba(20, 30, 48, 0.5) 0%, rgba(20, 30, 48, 0.5) 100%), url(${props.poster})`}; */
     }
 `;
 
-export const StyledCardContent = styled(CardContent)`
+export const Details = styled(CardContent)`
   && {
     flex: 1 0 auto;
   }
 `;
 
-export const StyledCardMedia = styled(CardMedia)`
-  && {
-    display: flex;
-    width: 200px;
-    height: 300px;
-  }
-`;
-
-export const Details = styled.div`
+export const Information = styled.div`
   && {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -50,8 +44,12 @@ export const Buttons = styled.div`
   && {
     display: flex;
     align-items: center;
-    padding-left: 8px;
+    padding-left: 16px;
     padding-bottom: 8px;
+
+    @media (max-width: 600px) {
+      padding-left: 8px;
+    }
   }
 `;
 
@@ -64,17 +62,29 @@ export const StyledDivider = styled(Divider)`
   }
 `;
 
-export const StyledTypography = styled(Typography)`
+export const Title = styled(Typography)`
   && {
-    text-shadow: 1px 1px 1px #000;
-    color: ${props => (props.variant === 'headline' ? 'white' : 'white')};
+    text-shadow: 1px 1px 3px #000;
+    color: white;
     opacity: 0.85;
   }
 `;
 
+export const Overview = Title.extend`
+  -webkit-line-clamp: 5;
+  max-height: 156px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
+
 export const StyledButton = styled(Button)`
   && {
-    text-shadow: 1px 1px 1px #000;
+    text-shadow: 1px 1px 3px #000;
     color: white;
+    opacity: 0.85;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 `;

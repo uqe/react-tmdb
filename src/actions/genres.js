@@ -1,13 +1,14 @@
+import { GET_GENRES_REQUEST, GET_GENRES_SUCCESS, GET_GENRES_FAILURE } from '../helpers/constants';
 import { api } from '../api';
-import * as actions from '../helpers/constants';
 
 export const getGenres = () => {
-  const request = () => ({ type: actions.GET_GENRES_REQUEST });
-  const success = genres => ({ type: actions.GET_GENRES_SUCCESS, genres });
-  const failure = error => ({ type: actions.GET_GENRES_FAILURE, error });
+  const request = () => ({ type: GET_GENRES_REQUEST });
+  const success = genres => ({ type: GET_GENRES_SUCCESS, genres });
+  const failure = error => ({ type: GET_GENRES_FAILURE, error });
 
-  return dispatch => {
+  return async dispatch => {
     dispatch(request());
-    api.getGenres().then(response => dispatch(success(response.data)));
+    const response = await api.getGenres();
+    dispatch(success(response.data));
   };
 };

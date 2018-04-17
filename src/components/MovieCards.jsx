@@ -10,7 +10,7 @@ class MovieCards extends Component {
   }
 
   render() {
-    const { genres, movies, pages, page, start, next, back } = this.props;
+    const { movies, pages, page, start, next, back } = this.props;
 
     return (
       <Fragment>
@@ -20,10 +20,9 @@ class MovieCards extends Component {
               movie={movie}
               poster_path={movie.poster_path}
               title={movie.title}
-              genre_ids={movie.genre_ids}
+              all_genres={movie.all_genres}
               overview={movie.overview}
               id={movie.id}
-              genres={genres}
             />
           </Box>
         ))}

@@ -14,7 +14,7 @@ class FavoritesMoviesPage extends Component {
     this.state = {
       page: null,
       pages: null,
-      renderMovies: [],
+      movies: [],
       doneslicing: false
     };
 
@@ -40,26 +40,25 @@ class FavoritesMoviesPage extends Component {
         pages: getTotalPages(props.favorites.length)
       },
       () => {
-        this.setState({ renderMovies: sliceMoviesToPages(props.favorites, this.state.page), doneslicing: true });
+        this.setState({ movies: sliceMoviesToPages(props.favorites, this.state.page), doneslicing: true });
       }
     );
   };
 
   render() {
-    const { genres, isFetched, isFetchedGenres } = this.props;
-    const { page, pages, renderMovies, doneslicing } = this.state;
+    const { isFetchedGenres } = this.props;
+    const { page, pages, movies, doneslicing } = this.state;
 
     return isFetchedGenres && doneslicing ? (
       <Fragment>
         <Helmet title={page === 1 ? `Favorites Movies` : `Favorites Movies | Page ${page}`} />
-        <AppBar />
         <Container>
-          {renderMovies.length !== 0 ? (
+          <AppBar />
+          {movies.length !== 0 ? (
             <MovieCards
-              movies={renderMovies}
+              movies={movies}
               pages={pages}
               page={page}
-              genres={genres}
               start="/favorites/page/1"
               next={`/favorites/page/${page + 1}`}
               back={`/favorites/page/${page - 1}`}
@@ -74,8 +73,10 @@ class FavoritesMoviesPage extends Component {
       </Fragment>
     ) : (
       <Fragment>
-        <Helmet title="Loading..." />
-        <AppBar isFetched={!(renderMovies.length !== 0)} isFetchedGenres={!isFetchedGenres} />
+        <Container>
+          <Helmet title="Loading..." />
+          <AppBar isFetched={!(movies.length !== 0)} isFetchedGenres={!isFetchedGenres} />
+        </Container>
       </Fragment>
     );
   }

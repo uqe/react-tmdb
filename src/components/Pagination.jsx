@@ -6,8 +6,8 @@ import { Box } from 'grid-styled';
 
 const StyledButton = styled(Button)`
   && {
-    background-color: #049;
-    color: white;
+    background-color: #081c24;
+    color: #01d277;
     height: 40px;
     margin: 0px 10px;
     &:hover {

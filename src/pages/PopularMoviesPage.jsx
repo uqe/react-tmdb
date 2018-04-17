@@ -17,15 +17,11 @@ class PopularMoviesPage extends Component {
   }
 
   componentDidMount = () => {
-    console.log('did mount');
     this.getCurrentPage(this.props);
     this.props.genres === undefined && this.props.getGenres();
   };
 
   componentWillReceiveProps = nextProps => {
-    // console.log(this.props);
-    // console.log(nextProps);
-    console.log('new props');
     this.props.match.params.page !== nextProps.match.params.page && this.getCurrentPage(nextProps);
   };
 
@@ -40,22 +36,23 @@ class PopularMoviesPage extends Component {
   };
 
   render() {
-    const { genres, movies: { results: movies }, movies: { total_results: pages }, isFetched, isFetchedGenres } = this.props;
+    const { movies: { results: movies }, movies: { total_results: pages }, isFetched, isFetchedGenres } = this.props;
     const { page } = this.state;
-    console.log('render');
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
         <Helmet title={page === 1 ? `Popular Movies` : `Popular Movies | Page ${page}`} />
-        <AppBar />
         <Container>
-          <MovieCards movies={movies} genres={genres} pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
+          <AppBar />
+          <MovieCards movies={movies} pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />
         </Container>
       </Fragment>
     ) : (
       <Fragment>
-        <Helmet title="Loading..." />
-        <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+        <Container>
+          <Helmet title="Loading..." />
+          <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+        </Container>
       </Fragment>
     );
   }
@@ -65,7 +62,6 @@ const mapStateToProps = state => ({
   movies: state.movies,
   isFetching: state.movies.isFetching,
   isFetched: state.movies.isFetched,
-  genres: state.genres.genres,
   isFetchedGenres: state.genres.isFetched
 });
 

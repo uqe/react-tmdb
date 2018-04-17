@@ -10,16 +10,21 @@ export const Animation = styled(Fade)``;
 export const MovieCardInfo = styled(Card)`
   && {
     display: flex;
-    margin: auto;
-    height: 300px;
+    margin: auto;  
+    height: ${props => (props.short === true ? 'auto' : '300px')};
     justify-content: space-between;
     &:hover {
+      ${'' /* background-position-y: 30%; */}
+    }
+    &:active {
       background-image: ${props =>
         `linear-gradient(to left, ${props.colors.second} 0%,  ${props.colors.first} 100%), url(${props.poster})`};
+      background-position-y: 50%;
     }
+    -webkit-transition:background-position 200ms ease;
     background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
     background-size: cover;
-    background-position-y: 5%;
+    background-position-y: ${props => (props.short === true ? '30%' : '5%')};
     box-shadow: inset 0px 0px 50px -15px rgba(0, 0, 0, 0.3), 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
     ${
       '' /* background-image: ${props => `linear-gradient(to left, rgba(20, 30, 48, 0.5) 0%, rgba(20, 30, 48, 0.5) 100%), url(${props.poster})`}; */
@@ -67,16 +72,29 @@ export const Title = styled(Typography)`
     text-shadow: 1px 1px 3px #000;
     color: white;
     opacity: 0.85;
+    ${props =>
+      props.short && {
+        overflow: 'hidden',
+        '-webkit-line-clamp': 1,
+        'text-overflow': 'elipsis',
+        display: '-webkit-box',
+        '-webkit-box-orient': 'vertical'
+      }};
   }
 `;
 
-export const Overview = Title.extend`
-  -webkit-line-clamp: 5;
-  max-height: 156px;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+export const Overview = styled(Typography)`
+  && {
+    text-shadow: 1px 1px 3px #000;
+    color: white;
+    opacity: 0.85;
+    -webkit-line-clamp: 5;
+    max-height: 156px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 `;
 
 export const StyledButton = styled(Button)`

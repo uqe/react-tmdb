@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
 import MovieCards from '../components/MovieCards';
-import Pagination from '../components/Pagination';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
 import { fetchURL } from '../helpers';
@@ -47,17 +46,16 @@ class SearchResultsPage extends Component {
   };
 
   render() {
-    const { search: { total_pages: pages }, search: { results: movies }, genres, isFetched, isFetchedGenres } = this.props;
+    const { search: { total_pages: pages }, search: { results: movies }, isFetched, isFetchedGenres } = this.props;
     const { page, movie } = this.state;
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
         <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`} />
-        <AppBar />
         <Container>
+          <AppBar />
           <MovieCards
             movies={movies}
-            genres={genres}
             pages={pages}
             page={page}
             start={{ pathname: '/search', search: `movie=${movie}` }}
@@ -68,8 +66,10 @@ class SearchResultsPage extends Component {
       </Fragment>
     ) : (
       <Fragment>
-        <Helmet title="Loading..." />
-        <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+        <Container>
+          <Helmet title="Loading..." />
+          <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
+        </Container>
       </Fragment>
     );
   }
@@ -79,7 +79,6 @@ const mapStateToProps = state => ({
   search: state.search,
   isFetching: state.search.isFetching,
   isFetched: state.search.isFetched,
-  genres: state.genres.genres,
   isFetchedGenres: state.genres.isFetched
 });
 

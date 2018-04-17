@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actions } from '../actions';
 import {
   MovieCardInfo as Card,
   Details,
@@ -13,8 +11,9 @@ import {
   Animation,
   Title
 } from '../ui/MovieCard';
-import { fetchGenres, setRandomGradient } from '../helpers';
+import { setRandomGradient } from '../helpers';
 import FavoriteButton from './FavoriteButton';
+import More from '@material-ui/icons/More';
 
 class MovieCard extends Component {
   constructor(props) {
@@ -48,29 +47,19 @@ class MovieCard extends Component {
   // }
 
   render() {
-    const {
-      genres,
-      movie,
-      poster_path,
-      title,
-      genre_ids,
-      overview,
-      id
-      // id,
-      // favorites,
-      // addMovieToFavorites,
-      // removeMovieFromFavorites
-    } = this.props;
+    const { all_genres, movie, poster_path, title, overview, id, short } = this.props;
 
     return (
       // <Animation in {...true && { timeout: 500 }}>
-      <Card colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
+      <Card short={short} colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
         <Information>
           <Details>
-            <Title variant="headline">{title}&nbsp;</Title>
+            <Title short={short} variant="headline">
+              {title}
+            </Title>
             <Overview variant="subheading">
-              {fetchGenres(genres, genre_ids).join(', ')}
-              <Divider />
+              {all_genres.join(', ')}
+              {short !== true && <Divider />}
               {overview}
             </Overview>
           </Details>
@@ -86,7 +75,7 @@ class MovieCard extends Component {
             )} */}
             <FavoriteButton movie={movie} id={id} />
             <Button size="small" component={({ ...props }) => <Link to={`/movie/${id}`} {...props} />}>
-              Learn more
+              <More />
             </Button>
           </Buttons>
         </Information>
@@ -96,13 +85,4 @@ class MovieCard extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   favorites: state.favorites
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
-//   removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
-// });
 export default MovieCard;
-// export default connect(mapStateToProps, mapDispatchToProps)(MovieCard);

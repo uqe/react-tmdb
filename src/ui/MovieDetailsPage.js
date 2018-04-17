@@ -44,7 +44,17 @@ export const StyledCard = styled(Card)`
     display: flex;
     justify-content: space-between;
     background-color: #f6f8fa;
-    max-width: 992px;
+    margin: auto;
+    height: 500px;
+    background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
+    background-size: cover;
+    background-position-y: 10%;
+    box-shadow: inset 0px 0px 50px -15px rgba(0, 0, 0, 0.3), 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    @media (min-width: 640px) {
+      margin-left: 4px;
+      margin-right: 4px;
+    }
   }
 `;
 
@@ -66,6 +76,7 @@ export const Details = styled.div`
   && {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -88,13 +99,19 @@ export const StyledDivider = styled(Divider)`
 
 export const StyledTypography = styled(Typography)`
   && {
-    color: ${props => (props.variant === 'headline' ? '#364049' : '#687B8E')};
+    text-shadow: 1px 1px 3px #000;
+    color: white;
+    opacity: 0.85;
   }
 `;
 
 export const StyledButton = styled(Button)`
   && {
-    color: #049;
+    text-shadow: 1px 1px 3px #000;
+    color: white;
+    opacity: 0.85;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 `;
 

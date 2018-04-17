@@ -1,20 +1,11 @@
 import queryString from 'query-string';
 import { colors } from '../ui/Colors';
 
-export const shortOverview = overview => (overview.length <= 300 ? overview : `${overview.substr(0, overview.lastIndexOf(' ', 300))}...`);
+export const fetchGenres = (genres, ids) => {
+  const result = [];
+  ids.map(id => genres.forEach(item => item.id === id && result.push(item.name)));
 
-export const fetchGenres = (genres, genreIds) => {
-  const genreWords = [];
-  genreIds.map(genreId => genres.forEach(item => item.id === genreId && genreWords.push(item.name)));
-
-  return genreWords;
-};
-
-export const renderGenres = genres => {
-  const done = [];
-  genres.map(genre => done.push(genre.name));
-
-  return done.join(', ');
+  return result;
 };
 
 export const fetchURL = (props, value) => queryString.parse(props.location.search)[value];

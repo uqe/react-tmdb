@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { StyledAppBar, StyledSearchBar, AppName, StyledCircularProgress } from '../ui/AppBar';
+import { StyledToolbar as Toolbar, StyledAppBar as Header, StyledButton as Button, StyledCircularProgress } from '../ui/AppBar';
+import SearchBar from 'material-ui-search-bar';
 import { Link, Redirect } from 'react-router-dom';
-import Toolbar from 'material-ui/Toolbar';
+import List from '@material-ui/icons/List';
 
 class AppBar extends Component {
   constructor(props) {
@@ -20,22 +21,28 @@ class AppBar extends Component {
 
     return (
       <Fragment>
-        <StyledAppBar position="static">
+        <Header position="static">
           <Toolbar>
-            <AppName variant="title" component={({ ...props }) => <Link to="/" {...props} />}>
-              TMDb
-            </AppName>
-            <AppName variant="title" component={({ ...props }) => <Link to="/favorites/page/1" {...props} />}>
-              Fav
-            </AppName>
-            <StyledSearchBar
+            <Link to="/" style={{ marginRight: '10px', marginTop: '4px' }}>
+              <img
+                alt="Logo"
+                height="45"
+                src="https://www.themoviedb.org/static_cache/v4/logos/stacked-green-cae7a95e2590dbdde28284ac26245cb2792788838f5c498b892e8d01c183e6f3.svg"
+              />
+            </Link>
+            <Button size="small" component={({ ...props }) => <Link to="/favorites/page/1" {...props} />}>
+              <List />
+            </Button>
+            <SearchBar
+              placeholder="Search movie"
+              style={{ flex: 8 }}
               onChange={value => this.setState({ searchValue: value })}
               value={searchValue}
               onRequestSearch={() => this.setState({ searchSubmitted: true })}
             />
             {searchSubmitted && searchValue.length >= 1 && <Redirect to={{ pathname: '/search', search: `movie=${searchValue}` }} />}
           </Toolbar>
-        </StyledAppBar>
+        </Header>
         {isFetched && <StyledCircularProgress size={100} />}
       </Fragment>
     );

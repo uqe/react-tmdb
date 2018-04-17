@@ -1,7 +1,7 @@
-import * as actions from '../helpers/constants';
+import { ADD_MOVIE_TO_FAVORITES, REMOVE_MOVIE_FROM_FAVORITES } from '../helpers/constants';
 
 export const addMovieToFavorites = movie => {
-  const addMovie = movie => ({ type: actions.ADD_MOVIE_TO_FAVORITES, movie });
+  const addMovie = movie => ({ type: ADD_MOVIE_TO_FAVORITES, movie });
 
   return dispatch => {
     dispatch(addMovie(movie));
@@ -9,7 +9,7 @@ export const addMovieToFavorites = movie => {
 };
 
 export const removeMovieFromFavorites = movie => {
-  const removeMovie = movie => ({ type: actions.REMOVE_MOVIE_FROM_FAVORITES, movie });
+  const removeMovie = movie => ({ type: REMOVE_MOVIE_FROM_FAVORITES, movie });
 
   return dispatch => {
     dispatch(removeMovie(movie));

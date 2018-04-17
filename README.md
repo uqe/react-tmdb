@@ -16,14 +16,16 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [x] favorite movies page
 * [x] react-router-redux
 * [x] responsive
+* [x] better appbar
+* [x] better colors for randomgradients
+* [x] better pagination buttons
+* [x] fix fav from movie details page
+* [x] recommendations cards
+* [x] async/await instead of promises
+* [ ] similar movies instead of recommended
 * [ ] details page
-* [ ] better pagination buttons
 * [ ] react-loadable
-* [ ] better appbar
 * [ ] mute adult movies
-* [ ] better colors for randomgradients
-* [ ] recommendations cards
-* [ ] fix fav from movie details page
 
 ## .env file example
 

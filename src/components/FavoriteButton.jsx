@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { actions } from '../actions';
-import { StyledButton as Button } from '../ui/MovieCard';
+import { StyledButton as Button } from '../ui/FavoriteButton';
+import Favorite from '@material-ui/icons/Favorite';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 class FavoriteButton extends Component {
   constructor(props) {
@@ -10,10 +11,7 @@ class FavoriteButton extends Component {
     this.state = {};
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(this.props);
-    console.log(nextProps);
-  }
+  componentWillReceiveProps(nextProps) {}
 
   shouldComponentUpdate(nextProps) {
     const unfav =
@@ -40,11 +38,11 @@ class FavoriteButton extends Component {
 
     return favorites.some(favmovie => favmovie.id === id) ? (
       <Button onClick={() => removeMovieFromFavorites(movie)} size="small">
-        Unfav
+        <Favorite />
       </Button>
     ) : (
       <Button onClick={() => addMovieToFavorites(movie)} size="small">
-        Add to fav
+        <FavoriteBorder />
       </Button>
     );
   }

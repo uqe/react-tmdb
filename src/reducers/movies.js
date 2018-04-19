@@ -5,9 +5,9 @@ import {
   GET_MOVIE_DETAILS_REQUEST,
   GET_MOVIE_DETAILS_SUCCESS,
   GET_MOVIE_DETAILS_FAILURE,
-  GET_MOVIE_RECOMMENDATIONS_REQUEST,
-  GET_MOVIE_RECOMMENDATIONS_SUCCESS,
-  GET_MOVIE_RECOMMENDATIONS_FAILURE,
+  GET_SIMILAR_MOVIES_REQUEST,
+  GET_SIMILAR_MOVIES_SUCCESS,
+  GET_SIMILAR_MOVIES_FAILURE,
   GET_MOVIE_SEARCH_RESULTS_REQUEST,
   GET_MOVIE_SEARCH_RESULTS_SUCCESS,
   GET_MOVIE_SEARCH_RESULTS_FAILURE
@@ -39,13 +39,13 @@ export const movie = (state = {}, action) => {
   }
 };
 
-export const recommendations = (state = {}, action) => {
+export const similar = (state = {}, action) => {
   switch (action.type) {
-    case GET_MOVIE_RECOMMENDATIONS_REQUEST:
+    case GET_SIMILAR_MOVIES_REQUEST:
       return { isFetching: true };
-    case GET_MOVIE_RECOMMENDATIONS_SUCCESS:
-      return { ...action.recommendations, isFetching: false, isFetched: true };
-    case GET_MOVIE_RECOMMENDATIONS_FAILURE:
+    case GET_SIMILAR_MOVIES_SUCCESS:
+      return { ...action.similar, isFetching: false, isFetched: true };
+    case GET_SIMILAR_MOVIES_FAILURE:
       return { error: action.error, isFetching: false };
     default:
       return state;

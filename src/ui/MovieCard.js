@@ -62,7 +62,7 @@ export const StyledDivider = styled(Divider)`
   && {
     opacity: 0.5;
     margin: 5px 0px;
-    background-color: #cdf;
+    background-color: white;
     padding-top: 1px;
   }
 `;

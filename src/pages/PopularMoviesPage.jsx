@@ -17,8 +17,8 @@ class PopularMoviesPage extends Component {
   }
 
   componentDidMount = () => {
+    this.props.getGenres();
     this.getCurrentPage(this.props);
-    this.props.genres === undefined && this.props.getGenres();
   };
 
   componentWillReceiveProps = nextProps => {
@@ -36,7 +36,12 @@ class PopularMoviesPage extends Component {
   };
 
   render() {
-    const { movies: { results: movies }, movies: { total_results: pages }, isFetched, isFetchedGenres } = this.props;
+    const {
+      movies: { results: movies },
+      movies: { total_results: pages },
+      isFetched,
+      isFetchedGenres
+    } = this.props;
     const { page } = this.state;
 
     return isFetched && isFetchedGenres ? (

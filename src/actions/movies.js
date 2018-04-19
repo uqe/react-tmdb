@@ -7,9 +7,9 @@ import {
   GET_MOVIE_DETAILS_REQUEST,
   GET_MOVIE_DETAILS_SUCCESS,
   GET_MOVIE_DETAILS_FAILURE,
-  GET_MOVIE_RECOMMENDATIONS_REQUEST,
-  GET_MOVIE_RECOMMENDATIONS_SUCCESS,
-  GET_MOVIE_RECOMMENDATIONS_FAILURE,
+  GET_SIMILAR_MOVIES_REQUEST,
+  GET_SIMILAR_MOVIES_SUCCESS,
+  GET_SIMILAR_MOVIES_FAILURE,
   GET_MOVIE_SEARCH_RESULTS_REQUEST,
   GET_MOVIE_SEARCH_RESULTS_SUCCESS,
   GET_MOVIE_SEARCH_RESULTS_FAILURE
@@ -46,19 +46,21 @@ export const getMovieDetails = id => {
   };
 };
 
-export const getMovieRecommendations = (id, page) => {
-  const request = () => ({ type: GET_MOVIE_RECOMMENDATIONS_REQUEST });
-  const success = recommendations => ({ type: GET_MOVIE_RECOMMENDATIONS_SUCCESS, recommendations });
-  const failure = error => ({ type: GET_MOVIE_RECOMMENDATIONS_FAILURE, error });
+export const getSimilarMovies = (id, page) => {
+  const request = () => ({ type: GET_SIMILAR_MOVIES_REQUEST });
+  const success = similar => ({ type: GET_SIMILAR_MOVIES_SUCCESS, similar });
+  const failure = error => ({ type: GET_SIMILAR_MOVIES_FAILURE, error });
 
   return async dispatch => {
     dispatch(request(id, page));
-    const response = await api.getMovieRecommendations(id, page);
+    const response = await api.getSimilarMovies(id, page);
     dispatch(
       success({
         ...response.data,
         results: response.data.results.map(movie =>
-          Object.assign(movie, { all_genres: fetchGenres(store.getState().genres.genres, movie.genre_ids) })
+          Object.assign(movie, {
+            all_genres: fetchGenres(store.getState().genres.genres, movie.genre_ids)
+          })
         )
       })
     );

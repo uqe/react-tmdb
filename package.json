@@ -49,8 +49,9 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --env.env=dev",
-    "devanalyzer": "webpack-dev-server --env.env=dev --env.bundlesize=true",
+    "dev-bundle-analyzer": "webpack-dev-server --env.env=dev --env.bundlesize=true",
     "build": "rimraf dist && cross-env NODE_ENV=production webpack -p --env.env=prod",
-    "buildanalyzer": "rimraf dist && cross-env NODE_ENV=production webpack -p --env.env=prod --env.bundlesize=true"
+    "build-bundle-analyzer": "rimraf dist && cross-env NODE_ENV=production webpack -p --env.env=prod --env.bundlesize=true",
+    "build-netlify": "node ./src/helpers/env-netlify.js && cross-env NODE_ENV=production webpack -p --env.env=prod"
   }
 }

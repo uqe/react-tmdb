@@ -22,8 +22,8 @@ class MovieCard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(this.props);
-    console.log(nextProps);
+    // console.log(this.props);
+    // console.log(nextProps);
   }
 
   // shouldComponentUpdate(nextProps) {

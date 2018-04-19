@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'TMDb',
+      title: 'Loading...',
       template: 'public/index.html',
       favicon: aliases.favicon,
       minify: {

@@ -7,11 +7,11 @@ import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory();
 const reduxRouter = routerMiddleware(history);
-const favorite = { states: ['favorites'], namespace: 'tmdb' };
+const settings = { states: ['genres', 'favorites'], namespace: 'tmdb' };
 
 const productionStore = () => {
-  const middlewares = [thunkMiddleware, reduxRouter, save(favorite)];
-  const store = createStore(rootReducer, load(favorite), applyMiddleware(...middlewares));
+  const middlewares = [thunkMiddleware, reduxRouter, save(settings)];
+  const store = createStore(rootReducer, load(settings), applyMiddleware(...middlewares));
 
   return store;
 };
@@ -19,9 +19,9 @@ const productionStore = () => {
 const developmentStore = () => {
   const { createLogger } = require('redux-logger');
   const loggerMiddleware = createLogger();
-  const middlewares = [thunkMiddleware, reduxRouter, loggerMiddleware, save(favorite)];
+  const middlewares = [thunkMiddleware, reduxRouter, loggerMiddleware, save(settings)];
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const store = createStore(rootReducer, load(favorite), composeEnhancers(applyMiddleware(...middlewares)));
+  const store = createStore(rootReducer, load(settings), composeEnhancers(applyMiddleware(...middlewares)));
 
   return store;
 };

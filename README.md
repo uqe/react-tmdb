@@ -22,10 +22,14 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [x] fix fav from movie details page
 * [x] recommendations cards
 * [x] async/await instead of promises
-* [ ] similar movies instead of recommended
+* [x] genres => lc
+* [x] similar movies instead of recommended
 * [ ] details page
 * [ ] react-loadable
 * [ ] mute adult movies
+* [ ] short genres (recomm cards)
+* [ ] show "no results"
+* [ ] netlify deploy config
 
 ## .env file example
 

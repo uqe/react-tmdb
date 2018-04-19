@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { injectGlobal } from 'styled-components';
 import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
 import { Flex, Box } from 'grid-styled';
@@ -17,9 +18,10 @@ import {
   StyledBadge,
   StyledTitle,
   StyledCircularProgress,
-  Container
+  Container,
+  Kek
 } from '../ui/MovieDetailsPage';
-import { setRandomGradient } from '../helpers';
+import { setRandomGradient, fetchRuntime, fetchCertifications, formatMoney } from '../helpers';
 import AppBar from '../components/AppBar';
 import MovieCard from '../components/MovieCard';
 import FavoriteButton from '../components/FavoriteButton';
@@ -33,7 +35,7 @@ class MovieDetailsPage extends Component {
   }
 
   componentDidMount = () => {
-    this.props.genres === undefined && this.props.getGenres();
+    this.props.getGenres();
     this.getCurrentMovie(this.props, true);
   };
 
@@ -45,14 +47,14 @@ class MovieDetailsPage extends Component {
     fetchInfo &&
       this.setState({ id: parseInt(props.match.params.id, 10) }, () => {
         this.props.getMovieDetails(this.state.id);
-        this.props.getMovieRecommendations(this.state.id, 1);
+        this.props.getSimilarMovies(this.state.id, 1);
       });
   };
 
   render() {
-    const { movie, isFetching, isFetched, recommendations, isFetchingRecommendations, isFetchedRecommendations } = this.props;
+    const { movie, isFetching, isFetched, similar, isFetchingSimilar, isFetchedSimilar } = this.props;
 
-    return isFetched && isFetchedRecommendations ? (
+    return isFetched && isFetchedSimilar ? (
       <Fragment>
         <Helmet title={movie.title} />
         <Container>
@@ -62,34 +64,59 @@ class MovieDetailsPage extends Component {
               <StyledCard colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w780${movie.poster_path}`}>
                 <Details>
                   <StyledCardContent>
-                    <StyledTypography variant="headline">{`${movie.title} (${movie.release_date.slice(0, 4)})`}</StyledTypography>
-                    <StyledBadge color="primary" badgeContent={movie.vote_average} />
+                    {/* <StyledBadge color="primary" badgeContent={movie.vote_average} /> */}
+                    <StyledTypography variant="headline" style={{ fontSize: '1.85rem' }}>
+                      {movie.vote_average !== 0 && <StyledBadge color="primary" badgeContent={movie.vote_average} />}
+                      {movie.release_dates.results.filter(country => country.iso_3166_1 === 'US').length !== 0 && (
+                        <StyledBadge color="primary" badgeContent={fetchCertifications(movie.release_dates)} />
+                      )}
+
+                      {`${movie.title} (${movie.release_date.slice(0, 4)})`}
+                    </StyledTypography>
+                    <StyledTypography style={{ fontSize: '1.4rem', opacity: 0.5 }} variant="headline">
+                      {movie.tagline}
+                    </StyledTypography>
                     <StyledTypography variant="subheading">
-                      {movie.all_genres.join(', ')}
+                      {movie.all_genres.length !== 0 && (
+                        <Fragment>
+                          {movie.all_genres.join(', ')} <br />
+                        </Fragment>
+                      )}
+                      {fetchRuntime(movie.runtime)}
                       <StyledDivider />
+                      {movie.budget !== 0 &&
+                        movie.revenue !== 0 && (
+                          <Fragment>
+                            <StyledTypography variant="headline">Budget / Worldwide Gross</StyledTypography>
+                            {`${formatMoney(movie.budget)} / ${formatMoney(movie.revenue)}`}
+                          </Fragment>
+                        )}
+                      {movie.credits.crew[0] !== undefined && (
+                        <Fragment>
+                          <StyledTypography variant="headline">Director</StyledTypography>
+                          {movie.credits.crew[0].name}
+                        </Fragment>
+                      )}
+                      <StyledTypography variant="headline">Writor</StyledTypography>
+                      <StyledTypography variant="headline">Stars</StyledTypography>
+                      {/* {isFetched && fetchActors(movie.credits.cast)}
+                      {console.log(fetchActors(movie.credits.cast))} */}
+                      {`${movie.credits.cast
+                        .slice(0, 5)
+                        .map(star => star.name)
+                        .join(', ')} and others`}
                       <StyledTypography variant="headline">Overview</StyledTypography>
                       {movie.overview}
                     </StyledTypography>
                   </StyledCardContent>
                   <Buttons>
                     <FavoriteButton movie={movie} id={movie.id} />
-                    <StyledButton
-                      size="small"
-                      component={({ ...props }) => (
-                        <Link
-                          to={`/movie/${recommendations.results[Math.floor(Math.random() * recommendations.results.length)].id}`}
-                          {...props}
-                        />
-                      )}
-                    >
-                      random silimar movie
-                    </StyledButton>
                   </Buttons>
                 </Details>
               </StyledCard>
             </Box>
           </StyledGrow>
-          {recommendations.results.map(movie => (
+          {similar.results.map(movie => (
             <Box width={[1, 0.7, 0.55, 0.48]} key={movie.original_title} my={2} mx={2}>
               <MovieCard
                 short
@@ -118,18 +145,17 @@ const mapStateToProps = state => ({
   movie: state.movie.results,
   isFetching: state.movie.isFetching,
   isFetched: state.movie.isFetched,
-  recommendations: state.recommendations,
-  isFetchingRecommendations: state.recommendations.isFetching,
-  isFetchedRecommendations: state.recommendations.isFetched,
+  similar: state.similar,
+  isFetchingSimilar: state.similar.isFetching,
+  isFetchedSimilar: state.similar.isFetched,
   favorites: state.favorites,
-  genres: state.genres.genres,
   isFetchedGenres: state.genres.isFetched
 });
 
 const mapDispatchToProps = dispatch => ({
   getGenres: () => dispatch(actions.getGenres()),
   getMovieDetails: id => dispatch(actions.getMovieDetails(id)),
-  getMovieRecommendations: (id, page) => dispatch(actions.getMovieRecommendations(id, page)),
+  getSimilarMovies: (id, page) => dispatch(actions.getSimilarMovies(id, page)),
   addMovieToFavorites: id => dispatch(actions.addMovieToFavorites(id)),
   removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
 });

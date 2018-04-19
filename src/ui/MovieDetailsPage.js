@@ -5,6 +5,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import styled from 'styled-components';
 import Badge from 'material-ui/Badge';
+import { withStyles } from 'material-ui';
 import { CircularProgress } from 'material-ui/Progress';
 import { Flex } from 'grid-styled';
 
@@ -25,11 +26,15 @@ export const StyledTitle = styled(Typography)`
     }
   }
 `;
+const BlackBadge = withStyles(() => ({ badge: { backgroundColor: '#ffffff66', width: '30px', height: '30px', fontSize: '0.9rem' } }))(
+  Badge
+);
 
-export const StyledBadge = styled(Badge)`
+export const StyledBadge = styled(BlackBadge)`
   && {
-    display: flex;
-    background-color: pink;
+    margin-top: -10px;
+    margin-right: 18px;
+    margin-left: 18px;
   }
 `;
 
@@ -45,7 +50,7 @@ export const StyledCard = styled(Card)`
     justify-content: space-between;
     background-color: #f6f8fa;
     margin: auto;
-    height: 500px;
+    min-height: 500px;
     background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
     background-size: cover;
     background-position-y: 10%;
@@ -91,9 +96,10 @@ export const Buttons = styled.div`
 
 export const StyledDivider = styled(Divider)`
   && {
+    opacity: 0.5;
     margin: 5px 0px;
-    background-color: #cdf;
-    padding-top: 1px;
+    background-color: white;
+    padding-top: 2px;
   }
 `;
 

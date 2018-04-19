@@ -1,10 +1,47 @@
-# TMDb API w/ React
+## TMDb API w/ React
 
-## Live demo
+### Live demo
 
-https://romantic-heyrovsky-090bb0.netlify.com/
+https://tmdb.netlify.com/
 
-## TODO
+### Tools used
+
+* webpack 4.6.0
+* react 16.2.0
+* redux, redux-thunk
+* material-ui, styled-components, grid-styled
+
+### Development
+
+Start: `yarn dev` (default port: 3000)
+
+Start and open bundle analyzer: `yarn dev-bundle-analyzer` (default port: 8888)
+
+### Production
+
+Build: `yarn build`
+
+Build and open bundle analyzer: `yarn build-bundle-analyzer`
+
+### .env file example
+
+```
+THEMOVIEDB_API_KEY=8SUisSHs7sSIsioSPsms
+THEMOVIEDB_API_LANGUAGE=en-EN
+THEMOVIEDB_API_ADULT=false
+```
+
+[Language variables](https://developers.themoviedb.org/3/getting-started/languages)
+
+### Netlify build environment
+
+Build command: `yarn build-netlify` (to create .env file)
+
+Publish directory: `dist`
+
+![Netlify settings](https://i.imgur.com/4YwWV1u.png)
+
+### TODO
 
 * [x] remove redux-logger from production build
 * [x] remove style-loader
@@ -22,19 +59,11 @@ https://romantic-heyrovsky-090bb0.netlify.com/
 * [x] fix fav from movie details page
 * [x] recommendations cards
 * [x] async/await instead of promises
-* [x] genres => lc
+* [x] genres => ls
 * [x] similar movies instead of recommended
 * [ ] details page
 * [ ] react-loadable
 * [ ] mute adult movies
-* [ ] short genres (recomm cards)
+* [ ] short genres (recommended cards)
 * [ ] show "no results"
 * [ ] netlify deploy config
-
-## .env file example
-
-     THEMOVIEDB_API_KEY=8SUisSHs7sSIsioSPsms
-     THEMOVIEDB_API_LANGUAGE=en-EN
-     THEMOVIEDB_API_ADULT=false
-
-[Language variables](https://developers.themoviedb.org/3/getting-started/languages)

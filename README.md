@@ -1,4 +1,4 @@
-## TMDb API w/ React
+# TMDb API w/ React
 
 ### Live demo
 
@@ -61,9 +61,9 @@ Publish directory: `dist`
 * [x] async/await instead of promises
 * [x] genres => ls
 * [x] similar movies instead of recommended
+* [x] netlify deploy config
 * [ ] details page
 * [ ] react-loadable
 * [ ] mute adult movies
 * [ ] short genres (recommended cards)
 * [ ] show "no results"
-* [ ] netlify deploy config

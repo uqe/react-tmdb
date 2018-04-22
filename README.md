@@ -67,7 +67,9 @@ Publish directory: `dist`
 * [x] movie poster => background
 * [x] webpack compression plugin
 * [x] lazyload posters
+* [x] mute adult movies
 * [ ] details page
-* [ ] mute adult movies
 * [ ] show "no results"
 * [ ] fix useless rerenders
+* [ ] infinite scroll for similar movies (???)
+* [ ] remove useless babel polyfills (???)

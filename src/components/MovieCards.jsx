@@ -23,6 +23,7 @@ class MovieCards extends Component {
               all_genres={movie.all_genres}
               overview={movie.overview}
               id={movie.id}
+              adult={movie.adult}
             />
           </Box>
         ))}

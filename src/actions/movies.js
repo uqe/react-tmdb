@@ -21,16 +21,18 @@ export const getPopularMovies = page => {
   const failure = error => ({ type: GET_POPULAR_MOVIES_FAILURE, error });
 
   return async dispatch => {
-    dispatch(request(page));
-    const response = await api.getPopularMovies(page);
-    dispatch(
-      success({
-        ...response.data,
-        results: response.data.results.map(movie =>
-          Object.assign(movie, { all_genres: fetchGenres(store.getState().genres.genres, movie.genre_ids) })
-        )
-      })
-    );
+    if (store.getState().movies.page !== page) {
+      dispatch(request(page));
+      const response = await api.getPopularMovies(page);
+      dispatch(
+        success({
+          ...response.data,
+          results: response.data.results.map(movie =>
+            Object.assign(movie, { all_genres: fetchGenres(store.getState().genres.genres, movie.genre_ids) })
+          )
+        })
+      );
+    }
   };
 };
 
@@ -52,18 +54,21 @@ export const getSimilarMovies = (id, page) => {
   const failure = error => ({ type: GET_SIMILAR_MOVIES_FAILURE, error });
 
   return async dispatch => {
-    dispatch(request(id, page));
-    const response = await api.getSimilarMovies(id, page);
-    dispatch(
-      success({
-        ...response.data,
-        results: response.data.results.map(movie =>
-          Object.assign(movie, {
-            all_genres: fetchGenres(store.getState().genres.genres, movie.genre_ids)
-          })
-        )
-      })
-    );
+    if (store.getState().similar.similar_from_id !== id) {
+      dispatch(request(id, page));
+      const response = await api.getSimilarMovies(id, page);
+      dispatch(
+        success({
+          ...response.data,
+          results: response.data.results.map(movie =>
+            Object.assign(movie, {
+              all_genres: fetchGenres(store.getState().genres.genres, movie.genre_ids)
+            })
+          ),
+          similar_from_id: id
+        })
+      );
+    }
   };
 };
 

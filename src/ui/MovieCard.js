@@ -1,12 +1,8 @@
+import styled from 'styled-components';
 import Card, { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import Fade from 'material-ui/transitions/Fade';
-import Button from 'material-ui/Button';
-import styled from 'styled-components';
 import IconButton from 'material-ui/IconButton';
-
-export const Animation = styled(Fade)``;
 
 export const MovieCardInfo = styled(Card)`
   && {
@@ -14,19 +10,22 @@ export const MovieCardInfo = styled(Card)`
     margin: auto;  
     height: ${props => (props.short === true ? 'auto' : '300px')};
     justify-content: space-between;
-    &:hover {
-    }
+    background-image: ${props =>
+      props.adult === true
+        ? `linear-gradient(to left,rgba(0, 0, 0, 0.95) 0%,rgba(255, 0, 129, 0.95) 100%), url(${props.poster})`
+        : `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
+
     &:active {
       background-image: ${props =>
         `linear-gradient(to left, ${props.colors.second} 0%,  ${props.colors.first} 100%), url(${props.poster})`};
-      background-position-y: 50%;
+      background-position-y: ${props => (props.adult === true ? '5%' : '50%')};
     }
     -webkit-transition:background-position 200ms ease;
-    background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
     background-size: cover;
     background-position-y: ${props => (props.short === true ? '30%' : '5%')};
     box-shadow: inset 0px 0px 50px -15px rgba(0, 0, 0, 0.3), 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
-
+      &:hover {
+    }
 `;
 
 export const Details = styled(CardContent)`

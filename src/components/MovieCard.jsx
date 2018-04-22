@@ -58,11 +58,11 @@ class MovieCard extends Component {
   };
 
   render() {
-    const { all_genres, movie, poster_path, title, overview, id, short } = this.props;
+    const { all_genres, movie, poster_path, title, overview, id, short, adult } = this.props;
 
     return (
       <LazyLoad offset={500} height={300}>
-        <Card short={short} colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
+        <Card short={short} adult={adult} colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
           <Information>
             <Details>
               <Title short={short} variant="headline">

@@ -1,9 +1,27 @@
 import React from 'react';
 import { Router, Route, Switch, withRouter } from 'react-router-dom';
-import PopularMoviesPage from '../pages/PopularMoviesPage';
-import MovieDetailsPage from '../pages/MovieDetailsPage';
-import SearchResultsPage from '../pages/SearchResultsPage';
-import FavoritesMoviesPage from '../pages/FavoritesMoviesPage';
+import loadable from '@7rulnik/react-loadable';
+import { Loader } from '../components/Loader';
+
+const PopularMoviesPage = loadable({
+  loader: () => import('../pages/PopularMoviesPage'),
+  loading: Loader
+});
+
+const MovieDetailsPage = loadable({
+  loader: () => import('../pages/MovieDetailsPage'),
+  loading: Loader
+});
+
+const SearchResultsPage = loadable({
+  loader: () => import('../pages/SearchResultsPage'),
+  loading: Loader
+});
+
+const FavoritesMoviesPage = loadable({
+  loader: () => import('../pages/FavoritesMoviesPage'),
+  loading: Loader
+});
 
 const Routes = ({ ...props }) => (
   <Router {...props}>

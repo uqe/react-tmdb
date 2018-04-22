@@ -3,6 +3,13 @@ import { StyledToolbar as Toolbar, StyledAppBar as Header, StyledButton as Butto
 import SearchBar from 'material-ui-search-bar';
 import { Link, Redirect } from 'react-router-dom';
 import List from '@material-ui/icons/List';
+import { Loader } from './Loader';
+import loadable from '@7rulnik/react-loadable';
+
+const FavoritesMoviesPage = loadable({
+  loader: () => import('../pages/FavoritesMoviesPage'),
+  loading: Loader
+});
 
 class AppBar extends Component {
   constructor(props) {
@@ -14,6 +21,10 @@ class AppBar extends Component {
   }
 
   componentWillReceiveProps = () => this.setState({ searchValue: '', searchSubmitted: false });
+
+  onMouseOver = () => {
+    FavoritesMoviesPage.preload();
+  };
 
   render() {
     const { isFetched, isFetchedGenres } = this.props;
@@ -30,7 +41,7 @@ class AppBar extends Component {
                 src="https://www.themoviedb.org/static_cache/v4/logos/stacked-green-cae7a95e2590dbdde28284ac26245cb2792788838f5c498b892e8d01c183e6f3.svg"
               />
             </Link>
-            <Button size="small" component={({ ...props }) => <Link to="/favorites/page/1" {...props} />}>
+            <Button size="small" onMouseOver={this.onMouseOver} component={({ ...props }) => <Link to="/favorites/page/1" {...props} />}>
               <List />
             </Button>
             <SearchBar

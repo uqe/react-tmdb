@@ -4,6 +4,7 @@ import Divider from 'material-ui/Divider';
 import Fade from 'material-ui/transitions/Fade';
 import Button from 'material-ui/Button';
 import styled from 'styled-components';
+import IconButton from 'material-ui/IconButton';
 
 export const Animation = styled(Fade)``;
 
@@ -14,7 +15,6 @@ export const MovieCardInfo = styled(Card)`
     height: ${props => (props.short === true ? 'auto' : '300px')};
     justify-content: space-between;
     &:hover {
-      ${'' /* background-position-y: 30%; */}
     }
     &:active {
       background-image: ${props =>
@@ -26,9 +26,7 @@ export const MovieCardInfo = styled(Card)`
     background-size: cover;
     background-position-y: ${props => (props.short === true ? '30%' : '5%')};
     box-shadow: inset 0px 0px 50px -15px rgba(0, 0, 0, 0.3), 0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 18px 0px rgba(0,0,0,0.12);
-    ${
-      '' /* background-image: ${props => `linear-gradient(to left, rgba(20, 30, 48, 0.5) 0%, rgba(20, 30, 48, 0.5) 100%), url(${props.poster})`}; */
-    }
+
 `;
 
 export const Details = styled(CardContent)`
@@ -97,12 +95,28 @@ export const Overview = styled(Typography)`
   }
 `;
 
-export const StyledButton = styled(Button)`
+export const Genres = styled(Typography)`
   && {
     text-shadow: 1px 1px 3px #000;
     color: white;
     opacity: 0.85;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    ${props =>
+      props.short && {
+        overflow: 'hidden',
+        '-webkit-line-clamp': 1,
+        'text-overflow': 'elipsis',
+        display: '-webkit-box',
+        '-webkit-box-orient': 'vertical'
+      }};
+  }
+`;
+
+export const StyledButton = styled(IconButton)`
+  && {
+    /* text-shadow: 1px 1px 3px #000; */
+    color: white;
+    opacity: 0.85;
+    /* padding-top: 8px;
+    padding-bottom: 8px; */
   }
 `;

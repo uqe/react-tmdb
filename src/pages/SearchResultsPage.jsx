@@ -46,7 +46,12 @@ class SearchResultsPage extends Component {
   };
 
   render() {
-    const { search: { total_pages: pages }, search: { results: movies }, isFetched, isFetchedGenres } = this.props;
+    const {
+      search: { total_pages: pages },
+      search: { results: movies },
+      isFetched,
+      isFetchedGenres
+    } = this.props;
     const { page, movie } = this.state;
 
     return isFetched && isFetchedGenres ? (

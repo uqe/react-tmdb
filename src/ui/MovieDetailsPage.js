@@ -5,7 +5,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import styled from 'styled-components';
 import Badge from 'material-ui/Badge';
-import { withStyles } from 'material-ui';
+import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 import { Flex } from 'grid-styled';
 
@@ -26,11 +26,11 @@ export const StyledTitle = styled(Typography)`
     }
   }
 `;
-const BlackBadge = withStyles(() => ({ badge: { backgroundColor: '#ffffff66', width: '30px', height: '30px', fontSize: '0.9rem' } }))(
+const WhiteBadge = withStyles(() => ({ badge: { backgroundColor: '#ffffff66', width: '30px', height: '30px', fontSize: '0.9rem' } }))(
   Badge
 );
 
-export const StyledBadge = styled(BlackBadge)`
+export const StyledBadge = styled(WhiteBadge)`
   && {
     margin-top: -10px;
     margin-right: 18px;
@@ -46,6 +46,9 @@ export const StyledGrow = styled(Grow)`
 
 export const StyledCard = styled(Card)`
   && {
+    @media (max-width: 600px) {
+      background-position-x: 50%;
+    }
     display: flex;
     justify-content: space-between;
     background-color: #f6f8fa;
@@ -89,8 +92,12 @@ export const Buttons = styled.div`
   && {
     display: flex;
     align-items: center;
-    padding-left: 8px;
+    padding-left: 16px;
     padding-bottom: 8px;
+
+    @media (max-width: 600px) {
+      padding-left: 8px;
+    }
   }
 `;
 

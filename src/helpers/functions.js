@@ -34,38 +34,39 @@ export const fetchRuntime = mins => {
 };
 
 export const fetchCertifications = dates => {
-  // if (dates.results.filter(country => country.iso_3166_1 === 'US').length === 0) {
-  //   return `-`;
-  // }
-
-  const { certification } = dates.results
+  const certs = dates.results
     .filter(country => country.iso_3166_1 === 'US')[0]
-    .release_dates.filter(release => release.type >= 3)[0];
+    .release_dates.filter(release => release.type >= 3)
+    .filter(type => type.certification !== '')[0];
 
-  switch (certification) {
+  if (certs === undefined) {
+    return false;
+  }
+
+  switch (certs.certification) {
+    case 'G':
+      return `0+`;
     case 'PG':
       return `0+`;
-      break;
     case 'PG-13':
       return `13+`;
-      break;
     case 'R':
       return `17+`;
-      break;
     case 'NC-17':
       return `18+`;
     case '':
-      return '—';
-      break;
+      return false;
     default:
-      return certification;
+      return certs.certification;
   }
 };
 
 export const formatMoney = money => {
   const settings = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
   });
 
   return settings.format(money);

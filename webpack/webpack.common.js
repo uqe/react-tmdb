@@ -25,6 +25,7 @@ module.exports = {
       title: 'Loading...',
       template: 'public/index.html',
       favicon: aliases.favicon,
+      chunksSortMode: 'none',
       minify: {
         removeComments: true,
         sortAttributes: true,

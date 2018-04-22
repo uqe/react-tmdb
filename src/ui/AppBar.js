@@ -28,13 +28,10 @@ export const StyledToolbar = styled(Toolbar)`
 export const StyledAppBar = styled(AppBar)`
   && {
     margin-bottom: 10px;
-    border-radius: 0px 0px 2px 2px;
     background-size: cover;
     background-position-y: 20%;
-    ${'' /* background-color: #00838f; */} height: 64px;
+    height: 64px;
     background-color: #081c24;
-    ${'' /* background-image: linear-gradient(to left, rgba(20, 30, 48, 0.4) 0%, rgba(36, 59, 85, 0.7) 100%),
-      url(https://image.tmdb.org/t/p/original/lkOZcsXcOLZYeJ2YxJd3vSldvU4.jpg); */};
   }
 `;
 
@@ -60,9 +57,3 @@ export const StyledCircularProgress = styled(CircularProgress)`
     margin: auto;
   }
 `;
-
-// export const StyledSearchBar = styled(SearchBar)`
-//   ${'' /* margin: 0 auto;
-//   max-width: 800px;
-//   flex: 8; */};
-// `;

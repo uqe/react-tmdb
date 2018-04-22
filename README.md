@@ -62,8 +62,12 @@ Publish directory: `dist`
 * [x] genres => ls
 * [x] similar movies instead of recommended
 * [x] netlify deploy config
+* [x] short genres (recommended cards)
+* [x] react-loadable
+* [x] movie poster => background
+* [x] webpack compression plugin
+* [x] lazyload posters
 * [ ] details page
-* [ ] react-loadable
 * [ ] mute adult movies
-* [ ] short genres (recommended cards)
 * [ ] show "no results"
+* [ ] fix useless rerenders

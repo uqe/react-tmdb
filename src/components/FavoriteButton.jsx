@@ -37,11 +37,14 @@ class FavoriteButton extends Component {
     const { movie, id, favorites, addMovieToFavorites, removeMovieFromFavorites } = this.props;
 
     return favorites.some(favmovie => favmovie.id === id) ? (
-      <Button onClick={() => removeMovieFromFavorites(movie)} size="small">
+      // <Button onClick={() => removeMovieFromFavorites(movie)} size="small">
+      //   <Favorite />
+      // </Button>
+      <Button onClick={() => removeMovieFromFavorites(movie)}>
         <Favorite />
       </Button>
     ) : (
-      <Button onClick={() => addMovieToFavorites(movie)} size="small">
+      <Button onClick={() => addMovieToFavorites(movie)}>
         <FavoriteBorder />
       </Button>
     );

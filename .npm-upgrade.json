@@ -1,12 +1,12 @@
 {
   "ignore": {
     "react": {
-      "versions": "16.3.1",
-      "reason": "broken HMR"
+      "versions": "16.3.2",
+      "reason": ""
     },
     "react-dom": {
-      "versions": "16.3.1",
-      "reason": "broken HMR"
+      "versions": "16.3.2",
+      "reason": ""
     }
   }
 }

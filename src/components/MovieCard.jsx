@@ -7,13 +7,21 @@ import {
   Buttons,
   StyledDivider as Divider,
   Overview,
+  Genres,
   StyledButton as Button,
-  Animation,
   Title
 } from '../ui/MovieCard';
 import { setRandomGradient } from '../helpers';
 import FavoriteButton from './FavoriteButton';
 import More from '@material-ui/icons/More';
+import { Loader } from './Loader';
+import loadable from '@7rulnik/react-loadable';
+import LazyLoad from 'react-lazyload';
+
+const MovieDetailsPage = loadable({
+  loader: () => import('../pages/MovieDetailsPage'),
+  loading: Loader
+});
 
 class MovieCard extends Component {
   constructor(props) {
@@ -45,42 +53,36 @@ class MovieCard extends Component {
 
   //   return unfav === true ? unfav : fav;
   // }
+  onMouseOver = () => {
+    MovieDetailsPage.preload();
+  };
 
   render() {
     const { all_genres, movie, poster_path, title, overview, id, short } = this.props;
 
     return (
-      // <Animation in {...true && { timeout: 500 }}>
-      <Card short={short} colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
-        <Information>
-          <Details>
-            <Title short={short} variant="headline">
-              {title}
-            </Title>
-            <Overview variant="subheading">
-              {all_genres.join(', ')}
+      <LazyLoad offset={500} height={300}>
+        <Card short={short} colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w300${poster_path}`}>
+          <Information>
+            <Details>
+              <Title short={short} variant="headline">
+                {title}
+              </Title>
+              <Genres short={short} variant="subheading">
+                {all_genres.join(', ')}
+              </Genres>
               {short !== true && <Divider />}
-              {overview}
-            </Overview>
-          </Details>
-          <Buttons>
-            {/* {favorites.some(favmovie => favmovie.id === id) ? (
-              <Button onClick={() => removeMovieFromFavorites(movie)} size="small">
-                Unfav
+              <Overview variant="subheading">{overview}</Overview>
+            </Details>
+            <Buttons>
+              <FavoriteButton movie={movie} id={id} />
+              <Button onMouseOver={this.onMouseOver} component={({ ...props }) => <Link to={`/movie/${id}`} {...props} />}>
+                <More />
               </Button>
-            ) : (
-              <Button onClick={() => addMovieToFavorites(movie)} size="small">
-                Add to fav
-              </Button>
-            )} */}
-            <FavoriteButton movie={movie} id={id} />
-            <Button size="small" component={({ ...props }) => <Link to={`/movie/${id}`} {...props} />}>
-              <More />
-            </Button>
-          </Buttons>
-        </Information>
-      </Card>
-      // </Animation>
+            </Buttons>
+          </Information>
+        </Card>
+      </LazyLoad>
     );
   }
 }

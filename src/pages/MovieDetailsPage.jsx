@@ -17,6 +17,7 @@ import { setRandomGradient, fetchRuntime, fetchCertifications, formatMoney } fro
 import AppBar from '../components/AppBar';
 import MovieCard from '../components/MovieCard';
 import FavoriteButton from '../components/FavoriteButton';
+import BackgroundFetcher from '../components/BackgroundFetcher';
 
 class MovieDetailsPage extends Component {
   constructor(props) {
@@ -49,20 +50,20 @@ class MovieDetailsPage extends Component {
     return isFetched && isFetchedSimilar ? (
       <Fragment>
         <Helmet title={`${movie.title} (${movie.release_date.slice(0, 4)})`}>
-          <style type="text/css">{`
-        body {
-          background-image: linear-gradient(to left,rgba(183, 183, 183, 0.9) 0%,rgba(60, 60, 60, 0.8) 100%),url(https://image.tmdb.org/t/p/original${
-            movie.poster_path
-          });
-          background-position-x: center;
+          <style type="text/css">
+            {`body {
           background-size: cover;
-        }
-    `}</style>
+          background-position-x: center;
+          background-repeat: no-repeat;
+          background-image: linear-gradient(to bottom,rgba(255, 255, 255, 0.6) 0%, rgb(0, 0, 0) 100%);
+        }`}
+          </style>
         </Helmet>
         <Container>
+          <BackgroundFetcher image={movie.poster_path} />
           <AppBar isFetching={isFetching} />
           <Box width={1} my={2} mx={2}>
-            <StyledCard colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/w780${movie.poster_path}`}>
+            <StyledCard colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/original${movie.poster_path}`}>
               <Details>
                 <StyledCardContent>
                   <StyledTypography variant="headline" style={{ fontSize: '1.85rem' }}>

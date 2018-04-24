@@ -68,6 +68,7 @@ Publish directory: `dist`
 * [x] webpack compression plugin
 * [x] lazyload posters
 * [x] mute adult movies
+* [x] adaptive gradient
 * [ ] details page
 * [ ] show "no results"
 * [ ] fix useless rerenders

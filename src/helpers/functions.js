@@ -54,6 +54,8 @@ export const fetchCertifications = dates => {
       return `17+`;
     case 'NC-17':
       return `18+`;
+    case 'NR':
+      return `0+`;
     case '':
       return false;
     default:
@@ -71,3 +73,5 @@ export const formatMoney = money => {
 
   return settings.format(money);
 };
+
+export const rgbToRgba = color => color.replace(/rgb/i, 'rgba').replace(/\)/i, ', 0.7)');

@@ -29,7 +29,7 @@ module.exports = {
   output: {
     filename: 'static/[name].[hash].js'
   },
-  devtool: 'source-map',
+  devtool: 'none',
   plugins: [
     new webpack.IgnorePlugin(/redux-logger/),
     new CompressionPlugin({ asset: '[path].gz[query]', algorithm: 'gzip', test: /\.js$/, threshold: 0, minRatio: 0.8 })

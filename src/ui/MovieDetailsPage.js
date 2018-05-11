@@ -48,13 +48,20 @@ export const StyledCard = styled(Card)`
   && {
     @media (max-width: 600px) {
       background-position-x: 50%;
+      background-image: ${props =>
+        `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(https://image.tmdb.org/t/p/w300${
+          props.poster
+        })`};
     }
     display: flex;
     justify-content: space-between;
     background-color: #f6f8fa;
     margin: auto;
     min-height: 500px;
-    background-image: ${props => `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(${props.poster})`};
+    background-image: ${props =>
+      `linear-gradient(to left, ${props.colors.first} 0%, ${props.colors.second} 100%), url(https://image.tmdb.org/t/p/original${
+        props.poster
+      })`};
     background-size: cover;
     background-position-y: 10%;
     box-shadow: inset 0px 0px 50px -15px rgba(0, 0, 0, 0.3), 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14),

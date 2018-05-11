@@ -4,13 +4,25 @@ import ImagePalette from 'react-image-palette';
 import { rgbToRgba } from '../helpers';
 
 const BackgroundFetcher = ({ image }) => (
-  <ImagePalette crossOrigin image={`https://image.tmdb.org/t/p/w500${image}`}>
+  <ImagePalette crossOrigin image={`https://image.tmdb.org/t/p/w300${image}`}>
     {({ backgroundColor, color, alternativeColor }) => (
       <Helmet>
         <style type="text/css">
-          {`body {background-image: linear-gradient(to bottom, ${rgbToRgba(
-            backgroundColor
-          )} 0%, rgb(0, 0, 0) 100%),url(https://image.tmdb.org/t/p/original${image});}`}
+          {`
+          @media screen and (max-width: 600px) {
+            body {
+              background-image: linear-gradient(to bottom, ${rgbToRgba(
+                backgroundColor
+              )} 0%, rgb(0, 0, 0) 100%),url(https://image.tmdb.org/t/p/w300${image});}
+            }
+
+         @media screen and (min-width: 601px) {
+          body {
+            background-image: linear-gradient(to bottom, ${rgbToRgba(
+              backgroundColor
+            )} 0%, rgb(0, 0, 0) 100%),url(https://image.tmdb.org/t/p/original${image});}
+            }
+          `}
         </style>
       </Helmet>
     )}

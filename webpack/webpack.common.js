@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Loading...',
+      title: 'Popular Movies',
       template: 'public/index.html',
       favicon: aliases.favicon,
       chunksSortMode: 'none',

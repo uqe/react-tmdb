@@ -63,7 +63,7 @@ class MovieDetailsPage extends Component {
           <BackgroundFetcher image={movie.poster_path} />
           <AppBar isFetching={isFetching} />
           <Box width={1} my={2} mx={2}>
-            <StyledCard colors={setRandomGradient()} poster={`https://image.tmdb.org/t/p/original${movie.poster_path}`}>
+            <StyledCard colors={setRandomGradient()} poster={movie.poster_path}>
               <Details>
                 <StyledCardContent>
                   <StyledTypography variant="headline" style={{ fontSize: '1.85rem' }}>

@@ -6,6 +6,7 @@ import MovieCards from '../components/MovieCards';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
 import { fetchURL } from '../helpers';
+import Typography from 'material-ui/Typography';
 
 class SearchResultsPage extends Component {
   constructor(props) {
@@ -56,7 +57,9 @@ class SearchResultsPage extends Component {
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
-        <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`} />
+        <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`}>
+          <meta name="theme-color" content="#081c24" />
+        </Helmet>
         <Container>
           <AppBar />
           <MovieCards
@@ -68,6 +71,11 @@ class SearchResultsPage extends Component {
             back={{ pathname: '/search', search: `page=${page - 1}&movie=${movie}` }}
           />
         </Container>
+        {movies.length === 0 && (
+          <Typography style={{ textAlign: 'center' }} variant="display1" gutterBottom>
+            No movies :(
+          </Typography>
+        )}
       </Fragment>
     ) : (
       <Fragment>

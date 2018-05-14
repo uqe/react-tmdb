@@ -7,6 +7,7 @@ import MovieCards from '../components/MovieCards';
 import AppBar from '../components/AppBar';
 import { Container } from '../ui/PopularMoviesPage';
 import { getTotalPages, sliceMoviesToPages } from '../helpers';
+import Typography from 'material-ui/Typography';
 
 class FavoritesMoviesPage extends Component {
   constructor(props) {
@@ -51,7 +52,9 @@ class FavoritesMoviesPage extends Component {
 
     return isFetchedGenres && doneslicing ? (
       <Fragment>
-        <Helmet title={page === 1 ? `Favorites Movies` : `Favorites Movies | Page ${page}`} />
+        <Helmet title={page === 1 ? `Favorites Movies` : `Favorites Movies | Page ${page}`}>
+          <meta name="theme-color" content="#081c24" />
+        </Helmet>
         <Container>
           <AppBar />
           {movies.length !== 0 ? (
@@ -65,7 +68,9 @@ class FavoritesMoviesPage extends Component {
             />
           ) : (
             <Fragment>
-              <h1>No favorite movies</h1>
+              <Typography style={{ marginTop: '20px' }} variant="display1" gutterBottom>
+                No favorite movies :(
+              </Typography>
               {page !== 1 && <Redirect to={`/favorites/page/${pages}`} />}
             </Fragment>
           )}

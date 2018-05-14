@@ -9,7 +9,7 @@
         // "useBuiltIns": true
       }
     ],
-    "@babel/preset-stage-0",
+  ["@babel/preset-stage-0", { "decoratorsLegacy": true }],
     "@babel/preset-react"
   ],
   "plugins": ["react-hot-loader/babel"]

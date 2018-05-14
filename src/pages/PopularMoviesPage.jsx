@@ -46,7 +46,9 @@ class PopularMoviesPage extends Component {
 
     return isFetched && isFetchedGenres ? (
       <Fragment>
-        <Helmet title={page === 1 ? `Popular Movies` : `Popular Movies | Page ${page}`} />
+        <Helmet title={page === 1 ? `Popular Movies` : `Popular Movies | Page ${page}`}>
+          <meta name="theme-color" content="#081c24" />
+        </Helmet>
         <Container>
           <AppBar />
           <MovieCards movies={movies} pages={pages} page={page} start="/" next={`/${page + 1}`} back={`/${page - 1}`} />

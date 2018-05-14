@@ -7,6 +7,7 @@ const BackgroundFetcher = ({ image }) => (
   <ImagePalette crossOrigin image={`https://image.tmdb.org/t/p/w300${image}`}>
     {({ backgroundColor, color, alternativeColor }) => (
       <Helmet>
+        <meta name="theme-color" content={backgroundColor} />
         <style type="text/css">
           {`
           @media screen and (max-width: 600px) {

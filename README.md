@@ -69,8 +69,9 @@ Publish directory: `dist`
 * [x] lazyload posters
 * [x] mute adult movies
 * [x] adaptive gradient
+* [x] show "no results"
 * [ ] details page
-* [ ] show "no results"
 * [ ] fix useless rerenders
 * [ ] infinite scroll for similar movies (???)
 * [ ] remove useless babel polyfills (???)
+* [ ] svg w/ webpack

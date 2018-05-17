@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import List from '@material-ui/icons/List';
 import { Loader } from './Loader';
 import loadable from '@7rulnik/react-loadable';
+import Logo from './Logo';
 
 const FavoritesMoviesPage = loadable({
   loader: () => import('../pages/FavoritesMoviesPage'),
@@ -35,11 +36,12 @@ class AppBar extends Component {
         <Header position="static">
           <Toolbar>
             <Link to="/" style={{ marginRight: '10px', marginTop: '4px' }}>
-              <img
+              <Logo />
+              {/* <img
                 alt="Logo"
                 height="45"
                 src="https://www.themoviedb.org/static_cache/v4/logos/stacked-green-cae7a95e2590dbdde28284ac26245cb2792788838f5c498b892e8d01c183e6f3.svg"
-              />
+              /> */}
             </Link>
             <Button size="small" onMouseOver={this.onMouseOver} component={({ ...props }) => <Link to="/favorites/page/1" {...props} />}>
               <List />

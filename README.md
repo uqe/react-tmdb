@@ -70,8 +70,8 @@ Publish directory: `dist`
 * [x] mute adult movies
 * [x] adaptive gradient
 * [x] show "no results"
+* [x] svg logo component
 * [ ] details page
 * [ ] fix useless rerenders
 * [ ] infinite scroll for similar movies (???)
 * [ ] remove useless babel polyfills (???)
-* [ ] svg w/ webpack

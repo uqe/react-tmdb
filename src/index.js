@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { injectGlobal } from 'styled-components';
-import Root from './Root';
 import { createBrowserHistory } from 'history';
+import Root from './Root';
 import { store } from './helpers';
 
 const history = createBrowserHistory();

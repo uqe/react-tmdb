@@ -1,6 +1,6 @@
 const webpack = require('webpack');
-const aliases = require('./aliases');
 const CompressionPlugin = require('compression-webpack-plugin');
+const aliases = require('./aliases');
 
 module.exports = {
   mode: 'production',
@@ -32,6 +32,6 @@ module.exports = {
   devtool: 'none',
   plugins: [
     new webpack.IgnorePlugin(/redux-logger/),
-    new CompressionPlugin({ asset: '[path].gz[query]', algorithm: 'gzip', test: /\.js$/, threshold: 0, minRatio: 0.8 })
+    new CompressionPlugin({ filename: '[path].gz[query]', algorithm: 'gzip', test: /\.js$/, threshold: 0, minRatio: 0.8 })
   ]
 };

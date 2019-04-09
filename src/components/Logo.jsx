@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Logo = () => (
-  <svg id="Logo" data-name="Logo" viewBox="0 0 160.02 174.22" height="45px" style={{ fill: '#01d277' }}>
+  <svg id="Logo" data-name="Logo" viewBox="0 0 160.02 174.22" height="42px" style={{ fill: 'black' }}>
     <title>Popular Movies</title>
     <defs />
     <path

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const aliases = require('./aliases');
-// s
+
 module.exports = {
   mode: 'production',
   entry: {

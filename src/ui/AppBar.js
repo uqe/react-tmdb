@@ -8,14 +8,17 @@ import Toolbar from 'material-ui/Toolbar';
 export const StyledButton = styled(Button)`
   && {
     text-shadow: 1px 1px 3px #000;
-    color: #01d277;
+    /* color: #01d277; */
+    color: black;
     padding-top: 8px;
     padding-bottom: 8px;
+    margin-right: 8px;
   }
 `;
 
 export const StyledToolbar = styled(Toolbar)`
   && {
+    box-shadow: unset;
     justify-content: flex-start;
     min-height: 64px;
     @media (max-width: 600px) {
@@ -27,11 +30,20 @@ export const StyledToolbar = styled(Toolbar)`
 
 export const StyledAppBar = styled(AppBar)`
   && {
-    margin-bottom: 10px;
-    background-size: cover;
-    background-position-y: 20%;
-    height: 64px;
-    background-color: #081c24;
+    /* flex-direction: row;
+     */
+    display: grid;
+    grid-template-columns: 42px 42px 70%;
+    gap: 10px 10px;
+    box-shadow: unset;
+    /* margin-top: 20px; */
+    /* background-size: cover; */
+    /* background-position-y: 20%; */
+    /* height: 64px; */
+    background-color: white;
+    @media (max-width: 425px) {
+      /* grid-template-columns: 24px auto 24px; */
+    }
   }
 `;
 

@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { actions } from '../actions';
-import { StyledButton as Button } from '../ui/FavoriteButton';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
+const AddButton = styled.button`
+  font-family: 'Roboto Mono', monospace;
+  color: black;
+  cursor: pointer;
+  height: 32px;
+  font-size: 0.8em;
+  text-align: initial;
+  border: unset;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  line-height: 32px;
+  background-color: white;
+  :focus {
+    outline: none !important;
+  }
+`;
 class FavoriteButton extends Component {
   constructor(props) {
     super(props);
@@ -37,16 +51,23 @@ class FavoriteButton extends Component {
     const { movie, id, favorites, addMovieToFavorites, removeMovieFromFavorites } = this.props;
 
     return favorites.some(favmovie => favmovie.id === id) ? (
-      // <Button onClick={() => removeMovieFromFavorites(movie)} size="small">
-      //   <Favorite />
-      // </Button>
-      <Button onClick={() => removeMovieFromFavorites(movie)}>
-        <Favorite />
-      </Button>
+      <AddButton
+        onClick={event => {
+          event.preventDefault();
+          removeMovieFromFavorites(movie);
+        }}
+      >
+        REMOVE FROM MY LIST
+      </AddButton>
     ) : (
-      <Button onClick={() => addMovieToFavorites(movie)}>
-        <FavoriteBorder />
-      </Button>
+      <AddButton
+        onClick={event => {
+          event.preventDefault();
+          addMovieToFavorites(movie);
+        }}
+      >
+        ADD TO MY LIST
+      </AddButton>
     );
   }
 }
@@ -60,4 +81,7 @@ const mapDispatchToProps = dispatch => ({
   removeMovieFromFavorites: id => dispatch(actions.removeMovieFromFavorites(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FavoriteButton);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FavoriteButton);

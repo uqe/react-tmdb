@@ -1,14 +1,14 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import Routes from './helpers/routes';
-import { ConnectedRouter } from 'react-router-redux';
 
 const Root = ({ history, store }) => (
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <BrowserRouter history={history}>
       <Routes />
-    </ConnectedRouter>
+    </BrowserRouter>
   </Provider>
 );
 

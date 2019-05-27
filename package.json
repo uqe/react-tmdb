@@ -19,7 +19,7 @@
     "react-dom": "16.2.0",
     "react-helmet": "5.2.0",
     "react-image-palette": "^0.2.4",
-    "react-lazyload": "2.3.0",
+    "react-lazyload": "2.5.0",
     "react-redux": "5.0.7",
     "react-router-dom": "4.2.2",
     "react-router-redux": "5.0.0-alpha.9",

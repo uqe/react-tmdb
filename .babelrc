@@ -1,13 +1,11 @@
 {
   "presets": [
+    "@babel/preset-typescript",
     [
       "@babel/preset-env",
       {
         "targets": {
-          "browsers": [
-            "last 2 versions",
-            "IE >= 11"
-          ]
+          "browsers": ["last 2 versions", "IE >= 11"]
         }
       }
     ],

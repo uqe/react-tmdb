@@ -2,36 +2,41 @@ import React from 'react';
 import { Router, Route, Switch, withRouter } from 'react-router-dom';
 import loadable from '@7rulnik/react-loadable';
 import { Loader } from '../components/Loader';
+import Header from '../components/Header';
+import { Container } from '../ui/Container';
 
-const PopularMoviesPage = loadable({
-  loader: () => import('../pages/PopularMoviesPage'),
+const Popular = loadable({
+  loader: () => import('../pages/Popular/container'),
   loading: Loader
 });
 
-const MovieDetailsPage = loadable({
-  loader: () => import('../pages/MovieDetailsPage'),
+const Movie = loadable({
+  loader: () => import('../pages/Movie'),
   loading: Loader
 });
 
-const SearchResultsPage = loadable({
-  loader: () => import('../pages/SearchResultsPage'),
+const Search = loadable({
+  loader: () => import('../pages/Search'),
   loading: Loader
 });
 
-const FavoritesMoviesPage = loadable({
-  loader: () => import('../pages/FavoritesMoviesPage'),
+const Favorites = loadable({
+  loader: () => import('../pages/Favorites'),
   loading: Loader
 });
 
 const Routes = ({ ...props }) => (
   <Router {...props}>
-    <Switch>
-      <Route exact path="/" component={PopularMoviesPage} />
-      <Route path="/favorites/page/:page" component={FavoritesMoviesPage} />
-      <Route path="/search" component={SearchResultsPage} />
-      <Route path="/movie/:id" component={MovieDetailsPage} />
-      <Route path="/:page" component={PopularMoviesPage} />
-    </Switch>
+    <Container>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Popular} />
+        <Route path="/favorites" component={Favorites} />
+        <Route path="/search" component={Search} />
+        <Route path="/movie/:id" component={Movie} />
+        <Route path="/page/:page" component={Popular} />
+      </Switch>
+    </Container>
   </Router>
 );
 

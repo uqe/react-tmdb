@@ -3,12 +3,10 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { actions } from '../actions';
 import MovieCards from '../components/MovieCards';
-import AppBar from '../components/AppBar';
-import { Container } from '../ui/PopularMoviesPage';
 import { fetchURL } from '../helpers';
-import Typography from 'material-ui/Typography';
+import { Sorry } from '../ui/Sorry';
 
-class SearchResultsPage extends Component {
+class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,8 +58,9 @@ class SearchResultsPage extends Component {
         <Helmet title={page === 1 ? `${movie} — results` : `${movie} — results | Page ${page}`}>
           <meta name="theme-color" content="#081c24" />
         </Helmet>
-        <Container>
-          <AppBar />
+        {movies.length === 0 ? (
+          <Sorry>No movies :(</Sorry>
+        ) : (
           <MovieCards
             movies={movies}
             pages={pages}
@@ -70,20 +69,10 @@ class SearchResultsPage extends Component {
             next={{ pathname: '/search', search: `page=${page + 1}&movie=${movie}` }}
             back={{ pathname: '/search', search: `page=${page - 1}&movie=${movie}` }}
           />
-        </Container>
-        {movies.length === 0 && (
-          <Typography style={{ textAlign: 'center' }} variant="display1" gutterBottom>
-            No movies :(
-          </Typography>
         )}
       </Fragment>
     ) : (
-      <Fragment>
-        <Container>
-          <Helmet title="Loading..." />
-          <AppBar isFetched={!isFetched} isFetchedGenres={!isFetchedGenres} />
-        </Container>
-      </Fragment>
+      <Helmet title="Loading..." />
     );
   }
 }
@@ -100,4 +89,7 @@ const mapDispatchToProps = dispatch => ({
   getGenres: () => dispatch(actions.getGenres())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchResultsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Search);

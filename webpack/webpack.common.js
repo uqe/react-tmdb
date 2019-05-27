@@ -35,7 +35,8 @@ module.exports = {
       }
     }),
     new Dotenv({
-      safe: false
+      safe: false,
+      path: './.prod.env'
     })
   ]
 };

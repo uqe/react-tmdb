@@ -23,7 +23,7 @@ Build: `yarn build`
 
 Build and open bundle analyzer: `yarn build-bundle-analyzer`
 
-### .env file example
+### .prod.env file example
 
 ```
 THEMOVIEDB_API_KEY=8SUisSHs7sSIsioSPsms
@@ -32,14 +32,6 @@ THEMOVIEDB_API_ADULT=false
 ```
 
 [Language variables](https://developers.themoviedb.org/3/getting-started/languages)
-
-### Netlify build environment
-
-Build command: `yarn build-netlify` (to create .env file)
-
-Publish directory: `dist`
-
-![Netlify settings](https://i.imgur.com/4YwWV1u.png)
 
 ### TODO
 

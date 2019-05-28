@@ -1,43 +1,28 @@
-import React from 'react';
-import { Router, Route, Switch, withRouter } from 'react-router-dom';
-import loadable from '@7rulnik/react-loadable';
-import { Loader } from '../components/Loader';
+import React, { Suspense, lazy } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header';
 import { Container } from '../ui/Container';
 
-const Popular = loadable({
-  loader: () => import('../pages/Popular/container'),
-  loading: Loader
-});
+const Popular = lazy(() => import('../pages/Popular/container'));
+const Movie = lazy(() => import('../pages/Movie'));
+const Favorites = lazy(() => import('../pages/Favorites'));
+const Search = lazy(() => import('../pages/Search'));
 
-const Movie = loadable({
-  loader: () => import('../pages/Movie'),
-  loading: Loader
-});
-
-const Search = loadable({
-  loader: () => import('../pages/Search'),
-  loading: Loader
-});
-
-const Favorites = loadable({
-  loader: () => import('../pages/Favorites'),
-  loading: Loader
-});
-
-const Routes = ({ ...props }) => (
-  <Router {...props}>
+const Routes = ({ history }) => (
+  <Router history={history}>
     <Container>
       <Header />
-      <Switch>
-        <Route exact path="/" component={Popular} />
-        <Route path="/favorites" component={Favorites} />
-        <Route path="/search" component={Search} />
-        <Route path="/movie/:id" component={Movie} />
-        <Route path="/page/:page" component={Popular} />
-      </Switch>
+      <Suspense fallback={null}>
+        <Switch>
+          <Route exact path="/" component={Popular} />
+          <Route path="/favorites" component={Favorites} />
+          <Route path="/search" component={Search} />
+          <Route path="/movie/:id" component={Movie} />
+          <Route path="/page/:page" component={Popular} />
+        </Switch>
+      </Suspense>
     </Container>
   </Router>
 );
 
-export default withRouter(Routes);
+export default Routes;

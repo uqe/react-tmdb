@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, lazy } from 'react';
 import styled from 'styled-components';
 import Pagination from './Pagination';
-import MovieCard from './MovieCard';
+
+const MovieCard = lazy(() => import('./MovieCard'));
 
 const Wrapper = styled.div`
   display: grid;

@@ -12,7 +12,7 @@ variables:
   azureSubscription: 'a77c2340-f1e1-4827-9657-a7d1365d9969'
 
   # Web app name
-  webAppName: ''
+  webAppName: 'tmdb'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'

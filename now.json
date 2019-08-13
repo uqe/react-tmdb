@@ -1,7 +1,6 @@
 {
   "version": 2,
   "name": "tmdb",
-  "alias": "tmdb.idiot.design",
   "builds": [
     {
       "use": "@now/static-build",

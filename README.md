@@ -2,7 +2,7 @@
 
 ### Live demo
 
-https://tmdb.netlify.com/
+https://tmdb.arthurn.me/
 
 ### Tools used
 

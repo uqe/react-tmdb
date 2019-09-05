@@ -1,5 +1,5 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React, { Profiler } from 'react';
+import { hydrate, render } from 'react-dom';
 import { injectGlobal } from 'styled-components';
 import { createBrowserHistory } from 'history';
 import Root from './Root';
@@ -7,7 +7,20 @@ import { store } from './helpers';
 
 const history = createBrowserHistory();
 
-render(<Root history={history} store={store} />, document.getElementById('app'));
+const rootElement = document.getElementById('app');
+
+if (rootElement.hasChildNodes()) {
+  hydrate(<Root history={history} store={store} />, rootElement);
+} else {
+  render(
+    <Profiler id="k" onRender={a => console.log(a)}>
+      <Root history={history} store={store} />{' '}
+    </Profiler>,
+    rootElement
+  );
+}
+
+// render(<Root history={history} store={store} />, document.getElementById('app'));
 
 injectGlobal`
 #app {

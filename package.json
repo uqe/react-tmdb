@@ -12,21 +12,22 @@
     "@types/react": "^16.8.2",
     "@types/react-router-dom": "^4.3.1",
     "axios": "0.18.0",
-    "grid-styled": "4.0.0",
     "cssgip-browser": "^0.0.4",
     "dotenv-webpack": "1.7.0",
+    "grid-styled": "4.0.0",
     "history": "4.7.2",
     "material-ui": "1.0.0-beta.40",
     "material-ui-search-bar": "1.0.0-beta.4",
     "query-string": "6.2.0",
-    "react": "16.8.1",
-    "react-dom": "16.8.1",
+    "react": "16.9.0-rc.0",
+    "react-dom": "16.9.0-rc.0",
     "react-helmet": "5.2.0",
     "react-image-palette": "^0.2.4",
     "react-lazyload": "2.5.0",
     "react-redux": "6.0.0",
     "react-router-dom": "4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
+    "react-snap": "^1.23.0",
     "redux": "4.0.1",
     "redux-localstorage-simple": "2.1.4",
     "redux-logger": "3.0.6",
@@ -77,6 +78,17 @@
     "build": "rimraf dist && cross-env NODE_ENV=production webpack -p --env.env=prod",
     "build-bundle-analyzer": "rimraf dist && cross-env NODE_ENV=production webpack -p --env.env=prod --env.bundlesize=true",
     "now-build": "yarn build",
-    "deploy": "now && now alias"
+    "deploy": "now && now alias",
+    "postbuild": "react-snap",
+    "screenshots": "node src/helpers/screenshots.js"
+  },
+  "reactSnap": {
+    "inlineCss": true,
+    "cacheAjaxRequests": true,
+    "source": "dist",
+    "minifyHtml": {
+      "collapseWhitespace": true,
+      "removeComments": true
+    }
   }
 }

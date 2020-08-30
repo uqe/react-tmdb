@@ -116,13 +116,15 @@ export const Genres = styled.h3`
 
 export const SubSubTitle = styled.h3`
   margin: 0px 0px 0px 0px;
-  letter-spacing: 0.25px;
-  font-size: 0.9em;
+  /* letter-spacing: 0.25px;
+  font-size: 0.9em; */
+  font-size: 1em;
+  font-weight: normal;
   @media (max-width: 425px) {
     font-size: 0.7em;
     /* letter-spacing: 0.15px; */
   }
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'Product Sans';
   color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -135,7 +137,9 @@ export const SubTitle = styled.h3`
     font-size: 1em;
     /* letter-spacing: 0.15px; */
   }
-  font-family: 'Product Sans';
+  font-family: 'Roboto Mono', monospace;
+  letter-spacing: 0.25px;
+
   color: black;
 `;
 

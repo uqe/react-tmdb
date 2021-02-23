@@ -79,7 +79,6 @@
     "build-bundle-analyzer": "rimraf dist && cross-env NODE_ENV=production webpack -p --env.env=prod --env.bundlesize=true",
     "now-build": "yarn build",
     "deploy": "now && now alias",
-    "postbuild": "react-snap",
     "screenshots": "node src/helpers/screenshots.js"
   },
   "reactSnap": {

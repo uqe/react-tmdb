@@ -35,9 +35,6 @@ injectGlobal`
   grid-template-rows: auto auto; */
 }
 
-/*
- * See: https://fonts.google.com/license/googlerestricted
- */
 /* cyrillic */
 @font-face {
   font-family: 'Product Sans';
@@ -424,13 +421,22 @@ injectGlobal`
 }
 
   body {
-    padding: 0;
-    margin: 0;
-    font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   }
 
-  html {
-     margin-left: calc(100vw - 100%);
-    -webkit-transform: translate3d(0,0,0);
+  *,
+  *::before,
+  *::after {
+  box-sizing: border-box;
   }
-`;
+
+body,
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}`;

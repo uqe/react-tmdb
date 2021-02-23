@@ -14,10 +14,10 @@ export const Badge = styled.span`
   text-align: center;
   margin-right: 8px;
 
-  width: 36px;
+  min-width: 36px;
   height: 36px;
   @media (max-width: 425px) {
-    width: 28px;
+    min-width: 28px;
     height: 28px;
     line-height: 28px;
     font-size: 0.7rem;

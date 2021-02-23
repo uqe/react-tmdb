@@ -33,7 +33,9 @@ export const StyledAppBar = styled(AppBar)`
     /* flex-direction: row;
      */
     display: grid;
-    grid-template-columns: 42px 42px 70%;
+    /* grid-template-columns: 42px 42px 70%; */
+
+    grid-template-columns: 42px 42px minmax(50%, 200px);
     gap: 10px 10px;
     box-shadow: unset;
     /* margin-top: 20px; */

@@ -5,14 +5,17 @@ import Pagination from './Pagination';
 const MovieCard = lazy(() => import('./MovieCard'));
 
 const Wrapper = styled.div`
-  display: grid;
-  gap: 16px 16px;
+  --min: calc(320px - 1.5rem);
+  --gap: 1rem;
+
   height: 100%;
-  grid-template-columns: 1fr 1fr;
-  @media (max-width: 768px) {
-    gap: 8px 8px;
-    grid-template-columns: 1fr;
-  }
+  display: grid;
+  grid-gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));
+
+  /* @media (max-width: 768px) {
+    grid-gap: 0.5rem;
+  } */
 `;
 
 const MovieCards = ({ movies, pages, page, start, next, back }) => (

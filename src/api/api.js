@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const TOKEN = process.env.THEMOVIEDB_API_KEY;
 const LANG = `language=${process.env.THEMOVIEDB_API_LANGUAGE}`;
-const ADULT = `include_adult=${process.env.THEMOVIEDB_API_ADULT}`;
+const ADULT = `include_adult=${Boolean(process.env.THEMOVIEDB_API_ADULT)}`;
 const URL = 'https://api.themoviedb.org/3';
 
 const getPopularMovies = async page =>

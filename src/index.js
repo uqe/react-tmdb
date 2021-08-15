@@ -13,9 +13,9 @@ if (rootElement.hasChildNodes()) {
   hydrate(<Root history={history} store={store} />, rootElement);
 } else {
   render(
-    <Profiler id="k" onRender={a => console.log(a)}>
-      <Root history={history} store={store} />{' '}
-    </Profiler>,
+    // <Profiler id="k" onRender={a => console.log(a)}>
+    <Root history={history} store={store} />,
+    // </Profiler>,
     rootElement
   );
 }

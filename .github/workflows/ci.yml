@@ -8,13 +8,12 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-    - uses: actions/checkout@master
-    - name: Use Node.js 10.x
-      uses: actions/setup-node@v1
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14
+      uses: actions/setup-node@v2
       with:
-        version: 10.x
-    - run: npm install -g yarn
-    - name: yarn install, build
-      run: |
-        yarn
-        yarn build
+        node-version: '14'
+        cache: 'npm'
+    - run: npm install
+    - name: npm build
+      run: npm run build

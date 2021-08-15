@@ -12,4 +12,4 @@ jobs:
         with:
           useLockFile: true
       - name: Build
-        run: npm build
+        run: npm run build
